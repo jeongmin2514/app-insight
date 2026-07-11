@@ -168,6 +168,18 @@ def load_experiments(path) -> list:
     return items
 
 
+def load_today_actions(path) -> list:
+    path = Path(path)
+    if not path.exists():
+        return []
+    items = json.loads(path.read_text(encoding="utf-8"))
+    for i, x in enumerate(items):
+        missing = {"app", "date", "action"} - x.keys()
+        if missing:
+            raise SchemaError(f"today_actions.json[{i}]: 필수 키 누락 {sorted(missing)}")
+    return items
+
+
 def load_events(path) -> dict:
     """data/events.json → app별 [{date,label}] (수기 운영 로그)."""
     path = Path(path)
@@ -215,7 +227,8 @@ def export_csv(data: dict, csv_dir: Path) -> None:
         pd.DataFrame(push_records).to_csv(csv_dir / "push.csv", index=False, encoding="utf-8-sig")
 
 
-def build(raw_dir, notes_dir, out_path, csv_dir, events_path=None, experiments_path=None) -> dict:
+def build(raw_dir, notes_dir, out_path, csv_dir, events_path=None, experiments_path=None,
+          today_actions_path=None) -> dict:
     data = load_raw(Path(raw_dir))
     if not data:
         raise SchemaError(f"{raw_dir}: raw 스냅샷이 없음")
@@ -234,6 +247,7 @@ def build(raw_dir, notes_dir, out_path, csv_dir, events_path=None, experiments_p
         "apps": apps,
         "notes": load_notes(notes_dir),
         "experiments": load_experiments(experiments_path) if experiments_path else [],
+        "today_actions": load_today_actions(today_actions_path) if today_actions_path else [],
     }
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -248,5 +262,6 @@ if __name__ == "__main__":
     build(ROOT / "data" / "raw", ROOT / "notes",
           ROOT / "data" / "dashboard.json", ROOT / "data" / "csv",
           events_path=ROOT / "data" / "events.json",
-          experiments_path=ROOT / "data" / "experiments.json")
+          experiments_path=ROOT / "data" / "experiments.json",
+          today_actions_path=ROOT / "data" / "today_actions.json")
     print("OK: data/dashboard.json 생성")

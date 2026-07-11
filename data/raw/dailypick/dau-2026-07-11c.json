@@ -1,0 +1,15 @@
+{
+  "app": "dailypick",
+  "metric": "dau",
+  "fetched_at": "2026-07-11T14:49:07+09:00",
+  "range": {"start": "2026-07-05", "end": "2026-07-11"},
+  "rows": [
+    {"date": "2026-07-06", "users": 1, "new_users": 0},
+    {"date": "2026-07-07", "users": 3, "new_users": 2},
+    {"date": "2026-07-08", "users": 2, "new_users": 2},
+    {"date": "2026-07-09", "users": 2, "new_users": 1},
+    {"date": "2026-07-10", "users": 4, "new_users": 2},
+    {"date": "2026-07-11", "users": 2, "new_users": 0}
+  ],
+  "source": {"note": "콘솔 응답에 7/05 미포함(결측 유지). 당일(7/11) 부분 집계 포함 — 다음 수집에서 upsert로 확정. 캐시 14:49 KST. 기본 파일명은 백필 스냅샷이 선점해 c 접미사 사용."}
+}

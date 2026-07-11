@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-07-11T14:30:35+09:00",
+ "generated_at": "2026-07-11T14:43:31+09:00",
  "headline": {
   "label": "3앱 누적 방문",
-  "value": 2305,
-  "as_of": "2026-07-10",
-  "visits_7d": 80,
-  "visits_prev_7d": 87,
-  "wow": -8.0,
-  "new_7d": 39,
+  "value": 2309,
+  "as_of": "2026-07-11",
+  "visits_7d": 75,
+  "visits_prev_7d": 88,
+  "wow": -14.8,
+  "new_7d": 37,
   "new_prev_7d": 41,
-  "new_wow": -4.9
+  "new_wow": -9.8
  },
  "apps": {
   "gureum": {
@@ -325,6 +325,11 @@
       "date": "2026-07-10",
       "users": 5,
       "new_users": 2
+     },
+     {
+      "date": "2026-07-11",
+      "users": 2,
+      "new_users": 0
      }
     ],
     "retention_ref": [
@@ -376,27 +381,82 @@
     ]
    },
    "summary": {
-    "dau_7d_avg": 5.7,
-    "last_date": "2026-07-10",
-    "total_visits": 1080,
-    "visits_7d": 40,
-    "visits_prev_7d": 36,
-    "new_7d": 14,
-    "new_prev_7d": 9,
-    "wow": 11.1
+    "dau_7d_avg": 4.9,
+    "last_date": "2026-07-11",
+    "total_visits": 1082,
+    "visits_7d": 34,
+    "visits_prev_7d": 39,
+    "new_7d": 12,
+    "new_prev_7d": 10,
+    "wow": -12.8
    },
    "events": [
     {
+     "date": "2026-05-10",
+     "label": "토스 미니앱 출시",
+     "chart": false
+    },
+    {
+     "date": "2026-05-12",
+     "label": "푸시 1차 캠페인 (4그룹×3소재 A/B)",
+     "chart": false
+    },
+    {
      "date": "2026-05-19",
      "label": "푸시 발송 (유입 84% 푸시)"
+    },
+    {
+     "date": "2026-05-20",
+     "label": "일기·캘린더·이미지 저장 기능 출시",
+     "chart": false
+    },
+    {
+     "date": "2026-05-23",
+     "label": "카드 이미지 렌더 버그 픽스 출시 (v2.4.7)",
+     "chart": false
     },
     {
      "date": "2026-05-28",
      "label": "푸시 발송 (유입 92% 푸시)"
     },
     {
+     "date": "2026-05-29",
+     "label": "푸시 2차 캠페인 (3타겟×3소재) + 로고 리뉴얼",
+     "chart": false
+    },
+    {
+     "date": "2026-06-05",
+     "label": "인스타 카드뉴스 매일 발행 시작",
+     "chart": false
+    },
+    {
+     "date": "2026-06-07",
+     "label": "인스타 자동 발행 파이프라인 가동",
+     "chart": false
+    },
+    {
+     "date": "2026-06-09",
+     "label": "앱 아이콘 교체·오프라인 내성 빌드 제출",
+     "chart": false
+    },
+    {
+     "date": "2026-06-13",
+     "label": "갤럭시 레이아웃 픽스 빌드",
+     "chart": false
+    },
+    {
+     "date": "2026-06-14",
+     "label": "릴스 디자인 10종 리뉴얼 배포",
+     "chart": false
+    },
+    {
      "date": "2026-06-20",
-     "label": "푸시 발송 (유입 82% 푸시)"
+     "label": "푸시 발송 (유입 82% 푸시, 신정책 4소재)"
+    },
+    {
+     "date": "2026-07-10",
+     "label": "투명 네비바 업데이트 콘솔 제출",
+     "chart": false
     }
    ]
   },
@@ -601,8 +661,13 @@
    },
    "events": [
     {
+     "date": "2026-06-09",
+     "label": "토스 미니앱 출시",
+     "chart": false
+    },
+    {
      "date": "2026-06-12",
-     "label": "출시 직후 전체탭 노출 (유입 97% 전체탭)"
+     "label": "전체탭 노출 · 비즈니스 카테고리 1위 (유입 97% 전체탭)"
     }
    ]
   },
@@ -754,6 +819,11 @@
       "date": "2026-07-10",
       "users": 4,
       "new_users": 2
+     },
+     {
+      "date": "2026-07-11",
+      "users": 2,
+      "new_users": 0
      }
     ],
     "retention_ref": [
@@ -792,16 +862,21 @@
     ]
    },
    "summary": {
-    "dau_7d_avg": 1.9,
-    "last_date": "2026-07-10",
-    "total_visits": 727,
-    "visits_7d": 13,
-    "visits_prev_7d": 34,
+    "dau_7d_avg": 2.0,
+    "last_date": "2026-07-11",
+    "total_visits": 729,
+    "visits_7d": 14,
+    "visits_prev_7d": 32,
     "new_7d": 7,
-    "new_prev_7d": 20,
-    "wow": -61.8
+    "new_prev_7d": 19,
+    "wow": -56.2
    },
    "events": [
+    {
+     "date": "2026-06-11",
+     "label": "토스 미니앱 출시",
+     "chart": false
+    },
     {
      "date": "2026-06-16",
      "label": "전체탭 노출 (유입 99% 전체탭)"

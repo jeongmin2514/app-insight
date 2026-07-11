@@ -127,6 +127,14 @@
   <div id="panels"></div>
 
   <section>
+    <h2>운영 로그</h2>
+    <div class="desc">날짜별 실행 액션 — 차트의 📍 표시와 연결됨</div>
+    <div class="box" style="padding:8px 18px;">
+      <div class="tscroll"><table id="oplog" style="min-width:0;"></table></div>
+    </div>
+  </section>
+
+  <section>
     <h2>Experiment History</h2>
     <div class="desc">문제 → 가설 → 실행 → 결과 → 결정. 분석이 의사결정으로 이어진 기록</div>
     <div id="exps"></div>
@@ -304,7 +312,8 @@ fetch('data/dashboard.json').then(r => r.json()).then(d => {
 
     if (dau.length) {
       sparkline(document.getElementById(`spark-${id}`), dau.slice(-30));
-      const chart = dauChart(document.getElementById(`dau-${id}`), dau, app.events || []);
+      const chart = dauChart(document.getElementById(`dau-${id}`), dau,
+        (app.events || []).filter(ev => ev.chart !== false));
       document.querySelector(`.range[data-chart="${id}"]`).addEventListener('click', e => {
         const b = e.target.closest('button'); if (!b) return;
         e.currentTarget.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
@@ -324,6 +333,14 @@ fetch('data/dashboard.json').then(r => r.json()).then(d => {
     panels.querySelectorAll('.panel').forEach(p =>
       p.classList.toggle('on', p.id === 'p-' + b.dataset.t));
   });
+
+  const allEvents = Object.entries(d.apps).flatMap(([id, app]) =>
+    (app.events || []).map(ev => ({ ...ev, appName: app.name })));
+  allEvents.sort((a, b) => b.date.localeCompare(a.date));
+  document.getElementById('oplog').innerHTML = allEvents.map(ev =>
+    `<tr><td style="color:var(--ink2);white-space:nowrap">${ev.date}</td>
+     <td style="text-align:left;font-weight:600;white-space:nowrap">${ev.appName}</td>
+     <td style="text-align:left;white-space:normal">${ev.chart !== false ? '📍 ' : ''}${ev.label}</td></tr>`).join('');
 
   document.getElementById('exps').innerHTML = d.experiments.map(x => `<div class="exp">
     <div class="head"><div><span class="d">${x.date}</span><br><b class="t">${x.title}</b></div>

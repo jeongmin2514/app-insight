@@ -1,7 +1,20 @@
 [
+  {"app": "gureum", "date": "2026-05-10", "label": "토스 미니앱 출시", "chart": false},
+  {"app": "gureum", "date": "2026-05-12", "label": "푸시 1차 캠페인 (4그룹×3소재 A/B)", "chart": false},
   {"app": "gureum", "date": "2026-05-19", "label": "푸시 발송 (유입 84% 푸시)"},
+  {"app": "gureum", "date": "2026-05-20", "label": "일기·캘린더·이미지 저장 기능 출시", "chart": false},
+  {"app": "gureum", "date": "2026-05-23", "label": "카드 이미지 렌더 버그 픽스 출시 (v2.4.7)", "chart": false},
   {"app": "gureum", "date": "2026-05-28", "label": "푸시 발송 (유입 92% 푸시)"},
-  {"app": "gureum", "date": "2026-06-20", "label": "푸시 발송 (유입 82% 푸시)"},
-  {"app": "jobflow", "date": "2026-06-12", "label": "출시 직후 전체탭 노출 (유입 97% 전체탭)"},
+  {"app": "gureum", "date": "2026-05-29", "label": "푸시 2차 캠페인 (3타겟×3소재) + 로고 리뉴얼", "chart": false},
+  {"app": "gureum", "date": "2026-06-05", "label": "인스타 카드뉴스 매일 발행 시작", "chart": false},
+  {"app": "gureum", "date": "2026-06-07", "label": "인스타 자동 발행 파이프라인 가동", "chart": false},
+  {"app": "gureum", "date": "2026-06-09", "label": "앱 아이콘 교체·오프라인 내성 빌드 제출", "chart": false},
+  {"app": "gureum", "date": "2026-06-13", "label": "갤럭시 레이아웃 픽스 빌드", "chart": false},
+  {"app": "gureum", "date": "2026-06-14", "label": "릴스 디자인 10종 리뉴얼 배포", "chart": false},
+  {"app": "gureum", "date": "2026-06-20", "label": "푸시 발송 (유입 82% 푸시, 신정책 4소재)"},
+  {"app": "gureum", "date": "2026-07-10", "label": "투명 네비바 업데이트 콘솔 제출", "chart": false},
+  {"app": "jobflow", "date": "2026-06-09", "label": "토스 미니앱 출시", "chart": false},
+  {"app": "jobflow", "date": "2026-06-12", "label": "전체탭 노출 · 비즈니스 카테고리 1위 (유입 97% 전체탭)"},
+  {"app": "dailypick", "date": "2026-06-11", "label": "토스 미니앱 출시", "chart": false},
   {"app": "dailypick", "date": "2026-06-16", "label": "전체탭 노출 (유입 99% 전체탭)"}
 ]

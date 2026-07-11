@@ -1,0 +1,12 @@
+{
+  "app": "gureum",
+  "metric": "dau",
+  "fetched_at": "2026-07-11T14:37:00+09:00",
+  "range": {"start": "2026-07-09", "end": "2026-07-11"},
+  "rows": [
+    {"date": "2026-07-09", "users": 5, "new_users": 2},
+    {"date": "2026-07-10", "users": 5, "new_users": 2},
+    {"date": "2026-07-11", "users": 2, "new_users": 0}
+  ],
+  "source": {"note": "당일(7/11) 부분 집계 포함 — 다음 수집에서 upsert로 확정치 덮어씀. 캐시 14:36 KST."}
+}

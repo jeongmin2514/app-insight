@@ -178,7 +178,7 @@ def load_events(path) -> dict:
         missing = {"app", "date", "label"} - e.keys()
         if missing:
             raise SchemaError(f"events.json[{i}]: 필수 키 누락 {sorted(missing)}")
-        out.setdefault(e["app"], []).append({"date": e["date"], "label": e["label"]})
+        out.setdefault(e["app"], []).append({k: v for k, v in e.items() if k != "app"})
     return out
 
 

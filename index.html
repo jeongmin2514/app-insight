@@ -28,8 +28,8 @@
   .headline-label { color:var(--ink2); font-size:13px; margin-top:2px; }
   .delta { font-size:13px; font-weight:700; }
   .delta.up { color:var(--up); } .delta.down { color:var(--down); } .delta.flat { color:var(--muted); }
-  .kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0 8px; }
-  @media (max-width:600px){ .kpis{ grid-template-columns:repeat(3,1fr); gap:6px; } }
+  .kpis { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:20px 0 8px; }
+  @media (max-width:600px){ .kpis{ gap:6px; } }
   .kpi { background:var(--card); border:1px solid #fff; border-radius:14px;
          box-shadow:var(--shadow); padding:12px 10px; text-align:center; }
   .kpi .l { font-size:11px; color:var(--ink2); }
@@ -41,7 +41,8 @@
   .weekly-insights ul { margin:6px 0 0 2px; list-style:none; }
   .weekly-insights li { padding:2px 0; color:var(--ink); }
   .weekly-insights li::before { content:'·'; font-weight:900; margin-right:7px; color:var(--s1); }
-  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0; }
+  .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:20px 0; }
+  .card canvas, .kpi canvas { max-width:100%; }
   @media (max-width:600px){ .cards{ grid-template-columns:1fr; } }
   .card { background:var(--card); border:1px solid #fff; border-radius:var(--r);
           box-shadow:var(--shadow); padding:16px 16px 10px; }
@@ -110,14 +111,6 @@
   footer { text-align:center; font-size:12px; color:var(--muted); margin-top:44px; line-height:1.9; }
   footer a { color:var(--s1); }
   .err { text-align:center; color:var(--ink2); padding:40px 0; }
-  .anchor { display:none; }
-  @media (min-width:1260px) {
-    .anchor { display:block; position:fixed; top:140px; left:calc(50% + 470px); width:120px;
-              font-size:12.5px; line-height:2.1; }
-    .anchor a { display:block; color:var(--muted); text-decoration:none; padding-left:12px;
-                border-left:2px solid transparent; }
-    .anchor a:hover { color:var(--ink); border-left-color:var(--s1); }
-  }
 </style>
 </head>
 <body>
@@ -138,11 +131,6 @@
     <b style="color:var(--s1)">오늘의 액션 <span id="todayDate" style="font-weight:400;color:var(--muted)"></span></b>
     <ul id="todayList"></ul>
   </div>
-
-  <nav class="anchor">
-    <a href="#top">주간 요약</a><a href="#apps">앱별 지표</a><a href="#ops">운영 로그</a>
-    <a href="#exph">실험 기록</a><a href="#insight">인사이트</a>
-  </nav>
 
   <div class="cards" id="cards"></div>
   <div class="tabs" id="tabs" role="tablist" style="scroll-margin-top:20px;"></div>

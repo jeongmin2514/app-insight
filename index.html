@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>토스 미니앱 3종 그로스 대시보드</title>
+<meta name="description" content="직접 출시한 토스 미니앱 3종의 지표를 직접 정의·수집·해석하는 그로스 대시보드">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --ink:#1A2B3F; --ink2:#5b6b7e; --muted:#8a97a6;
+    --s1:#1F7EC2; --s2:#B8740F;           /* 검증 통과 시리즈 팔레트 */
+    --paper:#fcfcfb; --card:#ffffff; --line:#e4e8ec; --gold:#a07030;
+  }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+         background:var(--paper); color:var(--ink); word-break:keep-all; line-height:1.65; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 16px 64px; }
+  header { text-align:center; padding:36px 0 8px; }
+  .eyebrow { font-size:11px; letter-spacing:.16em; color:var(--gold); font-weight:700; }
+  h1 { font-size:22px; margin:8px 0 26px; letter-spacing:-.01em; }
+  .headline-num { font-size:58px; font-weight:800; letter-spacing:-.03em; line-height:1.1; }
+  .headline-label { color:var(--ink2); font-size:14px; margin-top:4px; }
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:28px 0 20px; }
+  @media (max-width:600px){ .cards{ grid-template-columns:1fr; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 10px; }
+  .card h3 { font-size:15px; font-weight:700; }
+  .card .sub { font-size:12px; color:var(--ink2); margin-top:2px; }
+  .card .spark { height:46px; margin-top:10px; }
+  .tabs { display:flex; gap:6px; margin:6px 0 14px; }
+  .tabs button { flex:1; padding:10px 0; border:1px solid var(--line); background:var(--card);
+                 border-radius:10px; font-size:14px; font-weight:600; color:var(--ink2);
+                 cursor:pointer; font-family:inherit; }
+  .tabs button.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .panel { display:none; } .panel.on { display:block; }
+  .box { background:var(--card); border:1px solid var(--line); border-radius:14px;
+         padding:18px 18px 14px; margin-bottom:12px; }
+  .box h4 { font-size:14px; font-weight:700; }
+  .box .desc { font-size:12px; color:var(--muted); margin:2px 0 12px; }
+  .chart-h { height:230px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { padding:9px 6px; border-bottom:1px solid var(--line); text-align:right;
+           font-variant-numeric:tabular-nums; }
+  th { color:var(--ink2); font-weight:600; font-size:12px; }
+  th:first-child, td:first-child { text-align:left; }
+  tr:last-child td { border-bottom:none; }
+  .rbar { display:flex; align-items:center; gap:8px; }
+  .rbar .bar { height:10px; border-radius:4px; background:var(--s1); min-width:2px; flex:none; }
+  .rbar .val { font-weight:700; }
+  .caveat { font-size:12px; color:var(--muted); margin-top:10px; }
+  .notes h2 { font-size:18px; margin:34px 0 4px; }
+  .notes .desc { font-size:13px; color:var(--ink2); margin-bottom:14px; }
+  .note { background:var(--card); border:1px solid var(--line); border-left:3px solid var(--gold);
+          border-radius:12px; padding:16px 18px; margin-bottom:10px; }
+  .note .d { font-size:12px; color:var(--muted); }
+  .note b.t { display:block; font-size:15px; margin:3px 0 10px; }
+  .note p { font-size:13.5px; color:var(--ink); margin-bottom:8px; }
+  .note p:last-child { margin-bottom:0; }
+  .note .k { display:inline-block; font-size:11px; font-weight:700; color:var(--gold);
+             letter-spacing:.08em; margin-right:6px; }
+  footer { text-align:center; font-size:12px; color:var(--muted); margin-top:44px; line-height:1.9; }
+  footer a { color:var(--s1); }
+  .err { text-align:center; color:var(--ink2); padding:40px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">MINIAPP GROWTH DASHBOARD</div>
+    <h1>토스 미니앱 3종 그로스 대시보드</h1>
+    <div class="headline-num" id="hNum">—</div>
+    <div class="headline-label" id="hLabel"></div>
+  </header>
+
+  <div class="cards" id="cards"></div>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div id="panels"></div>
+
+  <section class="notes">
+    <h2>인사이트 노트</h2>
+    <div class="desc">숫자에서 멈추지 않기 위한 기록 — 관찰 · 해석 · 다음 액션</div>
+    <div id="notes"></div>
+  </section>
+
+  <footer>
+    토스 콘솔 지표 → Python 가공 → 정적 배포, 주 1~2회 반자동 수집 · <span id="gen"></span> 빌드<br>
+    수집 누락 구간은 보간 없이 공백으로 표시합니다 ·
+    <a href="https://github.com/jeongmin2514/app-insight">GitHub — 파이프라인 코드 · 지표 정의</a>
+  </footer>
+</div>
+
+<script>
+const fmt = n => n == null ? '—' : n.toLocaleString('ko-KR');
+const pct = v => v == null ? '—' : (v * 100).toFixed(v * 100 >= 10 ? 1 : 2) + '%';
+const md = d => d.slice(5).replace('-', '/');
+const C = { s1:'#1F7EC2', s2:'#B8740F', ink2:'#5b6b7e', grid:'#eef1f4' };
+
+function sparkline(el, rows) {
+  new Chart(el, { type:'line',
+    data:{ labels:rows.map(r => r.date), datasets:[{ data:rows.map(r => r.users),
+      borderColor:C.s1, borderWidth:2, pointRadius:0, tension:.3, fill:false }] },
+    options:{ maintainAspectRatio:false, events:[],
+      plugins:{ legend:{ display:false }, tooltip:{ enabled:false } },
+      scales:{ x:{ display:false }, y:{ display:false } } } });
+}
+
+function dauChart(el, rows) {
+  new Chart(el, { type:'line',
+    data:{ labels:rows.map(r => md(r.date)), datasets:[
+      { label:'전체 사용자', data:rows.map(r => r.users), borderColor:C.s1,
+        backgroundColor:C.s1, borderWidth:2, pointRadius:2, pointHoverRadius:5, tension:.25 },
+      { label:'신규 사용자', data:rows.map(r => r.new_users ?? null), borderColor:C.s2,
+        backgroundColor:C.s2, borderWidth:2, pointRadius:2, pointHoverRadius:5, tension:.25 }
+    ]},
+    options:{ maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+      plugins:{ legend:{ position:'top', align:'end',
+                  labels:{ boxWidth:8, boxHeight:8, usePointStyle:true, font:{ size:11 } } } },
+      scales:{ x:{ grid:{ display:false }, ticks:{ maxTicksLimit:8, font:{ size:11 }, color:C.ink2 } },
+               y:{ beginAtZero:true, grid:{ color:C.grid }, ticks:{ font:{ size:11 }, color:C.ink2 } } } } });
+}
+
+function retentionTable(rows) {
+  const latest = rows.filter(r => r.date === rows[rows.length - 1].date);
+  const sorted = [...latest].sort((a, b) => (b.w1 ?? -1) - (a.w1 ?? -1));
+  const max = Math.max(...sorted.map(r => r.w1 ?? 0), 0.0001);
+  return `<table>
+    <thead><tr><th>유입경로</th><th>첫주 유입</th><th style="text-align:left;padding-left:14px">1주차 재방문율</th><th>4주차</th></tr></thead>
+    <tbody>${sorted.map(r => `<tr>
+      <td>${r.cohort}</td><td>${fmt(r.first_users)}명</td>
+      <td style="text-align:left;padding-left:14px"><span class="rbar">
+        <span class="bar" style="width:${Math.round((r.w1 ?? 0) / max * 120)}px"></span>
+        <span class="val">${pct(r.w1)}</span></span></td>
+      <td>${'w4' in r ? pct(r.w4) : '—'}</td></tr>`).join('')}
+    </tbody></table>`;
+}
+
+fetch('data/dashboard.json').then(r => r.json()).then(d => {
+  document.getElementById('hNum').textContent = fmt(d.headline.value);
+  document.getElementById('hLabel').textContent =
+    `${d.headline.label} · ${d.headline.as_of || ''} 기준`;
+  document.getElementById('gen').textContent = d.generated_at.slice(0, 10);
+
+  const cards = document.getElementById('cards'), tabs = document.getElementById('tabs'),
+        panels = document.getElementById('panels');
+
+  Object.entries(d.apps).forEach(([id, app], i) => {
+    const dau = app.series.dau || [];
+    cards.insertAdjacentHTML('beforeend', `<div class="card"><h3>${app.name}</h3>
+      <div class="sub">누적 방문 ${fmt(app.summary.total_visits)} · 최근 7일 평균 ${fmt(app.summary.dau_7d_avg)}</div>
+      <div class="spark"><canvas id="spark-${id}"></canvas></div></div>`);
+    tabs.insertAdjacentHTML('beforeend',
+      `<button role="tab" data-t="${id}" class="${i === 0 ? 'on' : ''}">${app.name}</button>`);
+
+    const ret = app.series.retention_ref;
+    panels.insertAdjacentHTML('beforeend', `<div class="panel ${i === 0 ? 'on' : ''}" id="p-${id}">
+      <div class="box"><h4>일별 사용자</h4>
+        <div class="desc">전체 vs 신규 — 두 선이 붙어 있으면 유입이 전부 새 유저(재방문 없음)라는 뜻</div>
+        ${dau.length ? `<div class="chart-h"><canvas id="dau-${id}"></canvas></div>`
+                     : `<div class="caveat">초기 계측 중 — 수집 시작 2026-07-11</div>`}</div>
+      ${ret ? `<div class="box"><h4>유입경로별 리텐션 코호트</h4>
+        <div class="desc">어디서 들어온 유저가 남는가 (주 단위, ${ret[ret.length - 1].date} 기준)</div>
+        ${retentionTable(ret)}
+        ${id === 'jobflow' ? `<div class="caveat">⚠️ 콘솔 리텐션 코호트 산정 기준이 일별 유입 집계와 달라 첫주 유입 수가 실제 출시 스파이크(일 112~168명)와 어긋납니다. 원값 그대로 표시.</div>` : ''}</div>` : ''}
+    </div>`);
+
+    if (dau.length) {
+      sparkline(document.getElementById(`spark-${id}`), dau.slice(-30));
+      dauChart(document.getElementById(`dau-${id}`), dau);
+    }
+  });
+
+  tabs.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    tabs.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    panels.querySelectorAll('.panel').forEach(p =>
+      p.classList.toggle('on', p.id === 'p-' + b.dataset.t));
+  });
+
+  document.getElementById('notes').innerHTML = d.notes.map(n => `<div class="note">
+    <div class="d">${n.date} · ${d.apps[n.app]?.name || n.app}</div>
+    <b class="t">${n.title}</b>
+    <p><span class="k">관찰</span>${n.observe}</p>
+    <p><span class="k">해석</span>${n.interpret}</p>
+    <p><span class="k">액션</span>${n.action}</p></div>`).join('')
+    || '<div class="caveat">노트 없음</div>';
+}).catch(e => {
+  document.querySelector('.wrap').insertAdjacentHTML('beforeend',
+    '<div class="err">데이터를 불러오지 못했습니다.</div>');
+  console.error(e);
+});
+</script>
+</body>
+</html>

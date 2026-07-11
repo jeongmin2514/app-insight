@@ -3,7 +3,7 @@
 직접 출시해 운영 중인 토스 미니앱 3종(구름한입 · 잡플로우 · 데일리픽)의 지표를
 직접 정의하고, 수집 파이프라인을 만들고, 해석해서 다음 액션으로 연결하기 위해 만든 대시보드입니다.
 
-**Live**: https://app-insight-jeongmin2514s-projects.vercel.app
+**Live**: https://app-insight-eight.vercel.app
 
 ![dashboard](docs/img/dashboard-desktop.png)
 

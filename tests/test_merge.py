@@ -15,6 +15,14 @@ def test_new_dates_appended_and_sorted():
     b = snap("2026-07-08T00:00:00+09:00", [{"date": "2026-06-28", "users": 3}])
     assert [r["date"] for r in merge_snapshots([a, b])] == ["2026-06-28", "2026-06-30"]
 
+def test_retention_ref_rows_keyed_by_date_and_cohort():
+    rows = [
+        {"date": "2026-07-10", "cohort": "푸시알림", "first_users": 730, "w1": 0.0096},
+        {"date": "2026-07-10", "cohort": "전체탭", "first_users": 28, "w1": 0.2857},
+    ]
+    merged = merge_snapshots([snap("2026-07-11T00:00:00+09:00", rows, metric="retention_ref")])
+    assert len(merged) == 2
+
 def test_push_rows_keyed_by_date_campaign_segment():
     rows = [
         {"date": "2026-07-01", "campaign": "재방문", "segment": "40대", "sent": 100, "clicked": 2},

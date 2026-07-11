@@ -1,0 +1,15 @@
+{
+  "app": "jobflow",
+  "metric": "retention_ref",
+  "fetched_at": "2026-07-11T14:00:00+09:00",
+  "range": {"start": "2026-06-09", "end": "2026-07-10"},
+  "rows": [
+    {"date": "2026-07-10", "cohort": "기타", "first_users": 44, "w1": 0.0, "w2": 0.0, "w3": 0.0},
+    {"date": "2026-07-10", "cohort": "전체탭", "first_users": 2, "w1": 0.0, "w2": 0.0, "w3": 0.0},
+    {"date": "2026-07-10", "cohort": "미니앱홈", "first_users": 3, "w1": 0.0, "w2": 0.0, "w3": 0.0},
+    {"date": "2026-07-10", "cohort": "검색", "first_users": 3, "w1": 0.0, "w2": 0.0}
+  ],
+  "source": {
+    "note": "dashboard_retention(dimension=REFERRER, timeUnit=WEEK). date=조회 범위 종료일(as-of). ⚠️ 전체탭 first_users=2는 출시 스파이크(6/12~14 일 112~168명, 전체탭 97%)와 크게 어긋남 — 콘솔 리텐션 코호트 산정 기준이 DAU referrer와 다른 것으로 보임. 원값 그대로 보존하되 해석 주의."
+  }
+}

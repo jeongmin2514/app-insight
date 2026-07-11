@@ -14,6 +14,7 @@ ALLOWED_METRICS = {
     "dau": {"users"},
     "session": {"sessions"},
     "retention": set(),  # d1/d7/d30은 선택·nullable
+    "retention_ref": {"cohort", "first_users"},  # 유입경로별 코호트, w1..wN은 선택(비율 원값)
     "conversion": {"rate"},
     "pageview": {"views"},
     "push": {"campaign", "segment", "sent", "clicked"},
@@ -47,6 +48,8 @@ def validate_snapshot(snap: dict, name: str = "<snapshot>") -> None:
 def row_key(metric: str, row: dict):
     if metric == "push":
         return (row["date"], row["campaign"], row["segment"])
+    if metric == "retention_ref":
+        return (row["date"], row["cohort"])
     return row["date"]
 
 

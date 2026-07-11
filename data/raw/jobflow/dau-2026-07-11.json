@@ -1,0 +1,49 @@
+{
+  "app": "jobflow",
+  "metric": "dau",
+  "fetched_at": "2026-07-11T14:00:00+09:00",
+  "range": {"start": "2026-06-09", "end": "2026-07-10"},
+  "rows": [
+    {"date": "2026-06-09", "users": 4, "new_users": 4},
+    {"date": "2026-06-10", "users": 5, "new_users": 4},
+    {"date": "2026-06-11", "users": 8, "new_users": 7},
+    {"date": "2026-06-12", "users": 112, "new_users": 111},
+    {"date": "2026-06-13", "users": 168, "new_users": 165},
+    {"date": "2026-06-14", "users": 126, "new_users": 124},
+    {"date": "2026-06-15", "users": 3, "new_users": 1},
+    {"date": "2026-06-16", "users": 2, "new_users": 1},
+    {"date": "2026-06-17", "users": 3, "new_users": 2},
+    {"date": "2026-06-18", "users": 2, "new_users": 1},
+    {"date": "2026-06-19", "users": 2, "new_users": 1},
+    {"date": "2026-06-20", "users": 4, "new_users": 3},
+    {"date": "2026-06-22", "users": 3, "new_users": 2},
+    {"date": "2026-06-23", "users": 2, "new_users": 2},
+    {"date": "2026-06-24", "users": 4, "new_users": 2},
+    {"date": "2026-06-25", "users": 1, "new_users": 0},
+    {"date": "2026-06-26", "users": 5, "new_users": 4},
+    {"date": "2026-06-27", "users": 2, "new_users": 1},
+    {"date": "2026-06-28", "users": 3, "new_users": 3},
+    {"date": "2026-06-29", "users": 1, "new_users": 0},
+    {"date": "2026-06-30", "users": 3, "new_users": 2},
+    {"date": "2026-07-01", "users": 6, "new_users": 5},
+    {"date": "2026-07-03", "users": 2, "new_users": 1},
+    {"date": "2026-07-04", "users": 3, "new_users": 2},
+    {"date": "2026-07-05", "users": 2, "new_users": 1},
+    {"date": "2026-07-06", "users": 7, "new_users": 6},
+    {"date": "2026-07-07", "users": 3, "new_users": 2},
+    {"date": "2026-07-08", "users": 3, "new_users": 2},
+    {"date": "2026-07-09", "users": 5, "new_users": 3},
+    {"date": "2026-07-10", "users": 4, "new_users": 2}
+  ],
+  "source": {
+    "note": "au/newAu를 rows로 전사. 2026-06-21, 2026-07-02는 콘솔 응답에 없음(집계 0 추정이나 날조하지 않고 결측 유지). 아래는 기간 전체 인구통계 집계 원본.",
+    "age": [
+      {"ageGroup": "10대", "value": 11}, {"ageGroup": "20대 초반", "value": 107},
+      {"ageGroup": "20대 후반", "value": 158}, {"ageGroup": "30대 초반", "value": 118},
+      {"ageGroup": "30대 후반", "value": 65}, {"ageGroup": "40대", "value": 13},
+      {"ageGroup": "50대", "value": 14}, {"ageGroup": "60대 이상", "value": 12}
+    ],
+    "os": [{"os": "IOS", "value": 284}, {"os": "ANDROID", "value": 214}],
+    "gender": [{"gender": "MALE", "value": 294}, {"gender": "FEMALE", "value": 204}]
+  }
+}

@@ -27,6 +27,11 @@ def test_row_missing_metric_field_fails():
     with pytest.raises(SchemaError, match="users"):
         validate_snapshot({**GOOD, "rows": [{"date": "2026-07-10"}]})
 
+def test_retention_ref_requires_cohort():
+    with pytest.raises(SchemaError, match="cohort"):
+        validate_snapshot({**GOOD, "metric": "retention_ref",
+                           "rows": [{"date": "2026-07-10", "first_users": 10}]})
+
 def test_bad_date_format_fails():
     with pytest.raises(SchemaError, match="date"):
         validate_snapshot({**GOOD, "rows": [{"date": "07/10", "users": 1}]})

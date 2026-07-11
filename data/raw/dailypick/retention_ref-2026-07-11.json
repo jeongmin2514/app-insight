@@ -1,15 +1,15 @@
 {
   "app": "dailypick",
   "metric": "retention_ref",
-  "fetched_at": "2026-07-11T14:00:00+09:00",
-  "range": {"start": "2026-06-11", "end": "2026-07-10"},
+  "fetched_at": "2026-07-11T21:24:00+09:00",
+  "range": {"start": "2026-06-11", "end": "2026-07-11"},
   "rows": [
-    {"date": "2026-07-10", "cohort": "전체탭", "first_users": 629, "w1": 0.009538950715421303, "w2": 0.01589825119236884, "w3": 0.003179650238473768},
-    {"date": "2026-07-10", "cohort": "기타", "first_users": 37, "w1": 0.0, "w2": 0.0, "w3": 0.0},
-    {"date": "2026-07-10", "cohort": "미니앱홈", "first_users": 3, "w1": 0.0, "w2": 0.0, "w3": 0.0},
-    {"date": "2026-07-10", "cohort": "검색", "first_users": 1, "w1": 0.0, "w2": 0.0, "w3": 0.0}
+    {"date": "2026-07-11", "cohort": "전체탭", "first_users": 629, "w1": 0.009538950715421303, "w2": 0.01589825119236884, "w3": 0.003179650238473768},
+    {"date": "2026-07-11", "cohort": "기타", "first_users": 37, "w1": 0.0, "w2": 0.0, "w3": 0.0},
+    {"date": "2026-07-11", "cohort": "미니앱홈", "first_users": 3, "w1": 0.0, "w2": 0.0, "w3": 0.0},
+    {"date": "2026-07-11", "cohort": "검색", "first_users": 1, "w1": 0.0, "w2": 0.0, "w3": 0.0}
   ],
   "source": {
-    "note": "dashboard_retention(dimension=REFERRER, timeUnit=WEEK). date=조회 범위 종료일(as-of). isCompletedData=true 구간만 포함."
+    "note": "dashboard_retention(dimension=REFERRER, timeUnit=WEEK). 6월 출시라 콘솔에 3주차(timeValue 3)까지만 존재 - 데이터 한계. isCompletedData=true 구간만. date=조회 종료일(as-of)."
   }
 }

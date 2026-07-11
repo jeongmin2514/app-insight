@@ -236,16 +236,25 @@ function retentionTable(rows) {
   const sorted = [...latest].sort((a, b) => (b.w1 ?? -1) - (a.w1 ?? -1));
   const max = Math.max(...sorted.map(r => r.w1 ?? 0), 0.0001);
   const wk = (r, k) => k in r ? pct(r[k]) : '-';
+  // 데이터에 존재하는 최대 주차를 찾아 컬럼을 동적 생성 (앱이 성숙하면 자동 확장)
+  let maxWk = 1;
+  latest.forEach(r => Object.keys(r).forEach(k => {
+    const m = /^w(\d+)$/.exec(k); if (m) maxWk = Math.max(maxWk, +m[1]);
+  }));
+  const laterWeeks = [];
+  for (let n = 2; n <= maxWk; n++) laterWeeks.push(n);
+  const headCols = laterWeeks.map(n => `<th>${n}주차</th>`).join('');
   return `<div class="tscroll"><table>
-    <thead><tr><th>유입경로</th><th>첫주 유입</th><th style="text-align:left;padding-left:14px">1주차 재방문율</th><th>2주차</th><th>3주차</th><th>4주차</th></tr></thead>
+    <thead><tr><th>유입경로</th><th>첫주 유입</th><th style="text-align:left;padding-left:14px">1주차 재방문율</th>${headCols}</tr></thead>
     <tbody>${sorted.map(r => {
       const small = r.first_users < 10;
+      const cols = laterWeeks.map(n => `<td>${wk(r, 'w' + n)}</td>`).join('');
       return `<tr class="${small ? 'smalln' : ''}">
       <td>${r.cohort}${small ? ' ⚠' : ''}</td><td>${fmt(r.first_users)}명</td>
       <td style="text-align:left;padding-left:14px"><span class="rbar">
         <span class="bar" style="width:${Math.round((r.w1 ?? 0) / max * 90)}px;background:${small ? '#b6c0ca' : bucket(r.w1)}"></span>
         <span class="val">${pct(r.w1)}</span></span></td>
-      <td>${wk(r, 'w2')}</td><td>${wk(r, 'w3')}</td><td>${wk(r, 'w4')}</td></tr>`;}).join('')}
+      ${cols}</tr>`;}).join('')}
     </tbody></table></div>
     <div class="legend-note">1주차 재방문율
       <span class="dot" style="background:${C.good}"></span>20% 이상

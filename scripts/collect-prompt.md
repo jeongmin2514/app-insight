@@ -13,7 +13,9 @@
    - 형식은 기존 파일(`dau-2026-07-11b.json`) 참고: `{"app","metric":"dau","fetched_at","range","rows":[{"date","users","new_users"}],"source":{"note"}}`
    - 콘솔 응답에 없는 날짜는 절대 0으로 만들지 말 것 (결측 유지). 당일 부분 집계는 그대로 저장 (다음날 upsert로 확정됨).
 3. 일요일이면 리텐션도 갱신: `dashboard_retention`(dimension REFERRER, timeUnit WEEK, 출시일~오늘)을 3앱 조회해
-   `retention_ref-{오늘}.json`으로 저장 (기존 파일 형식 참고, isCompletedData=true 구간만).
+   `retention_ref-{오늘}.json`으로 저장 (기존 파일 형식 참고).
+   - **각 코호트 `data` 배열의 전체 주차를 담아라** (timeValue 1..N을 w1..wN으로, `isCompletedData:true`인 것만). timeValue 0(=100%)은 생략.
+   - **4주 제한 없음** - 콘솔에 있는 만큼 전부 담는다. 앱이 오래될수록 주차가 늘어난다(대시보드 표가 자동으로 확장됨). 값은 콘솔 원값 그대로, 반올림 금지.
 4. 오늘의 액션 생성: 수집한 지표를 보고 `data/today_actions.json`을 **오늘 날짜로 전체 교체**한다.
    - 형식: `[{"app","date":"오늘","action":"한 줄","basis":"근거 지표 한 줄"}]` — 앱 3개 각 1줄.
    - 규칙: 실제 지표 변화(주간 방문 증감, 신규 비중, 마지막 푸시로부터 경과)에서만 도출. 과장·날조 금지. 긴 대시(—) 쓰지 말고 하이픈(-)만.

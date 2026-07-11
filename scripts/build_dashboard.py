@@ -4,6 +4,7 @@
 """
 import json
 import re
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 APPS = {"gureum": "구름한입", "jobflow": "잡플로우", "dailypick": "데일리픽"}
@@ -69,3 +70,92 @@ def load_raw(raw_dir: Path) -> dict:
             raise SchemaError(f"{path}: 폴더({path.parent.name})와 app({snap['app']}) 불일치")
         groups.setdefault((snap["app"], snap["metric"]), []).append(snap)
     return {k: merge_snapshots(v) for k, v in groups.items()}
+
+
+NOTE_SECTIONS = {"관찰": "observe", "해석": "interpret", "액션": "action"}
+
+
+def parse_note(path: Path) -> dict:
+    text = Path(path).read_text(encoding="utf-8")
+    m = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)$", text, re.S)
+    if not m:
+        raise SchemaError(f"{Path(path).name}: front matter(---) 없음")
+    meta = {}
+    for line in m.group(1).splitlines():
+        if ":" in line:
+            k, v = line.split(":", 1)
+            meta[k.strip()] = v.strip()
+    for req in ("date", "title", "app"):
+        if req not in meta:
+            raise SchemaError(f"{Path(path).name}: front matter에 {req} 없음")
+    note = {"date": meta["date"], "title": meta["title"], "app": meta["app"]}
+    for kr, en in NOTE_SECTIONS.items():
+        sm = re.search(rf"^## {kr}\s*\n(.*?)(?=^## |\Z)", m.group(2), re.S | re.M)
+        if not sm:
+            raise SchemaError(f"{Path(path).name}: '## {kr}' 섹션 없음")
+        note[en] = sm.group(1).strip()
+    return note
+
+
+def load_notes(notes_dir: Path) -> list:
+    notes_dir = Path(notes_dir)
+    if not notes_dir.exists():
+        return []
+    return sorted((parse_note(p) for p in notes_dir.glob("*.md")),
+                  key=lambda n: n["date"], reverse=True)
+
+
+def with_ctr(rows: list) -> list:
+    out = []
+    for r in rows:
+        r = dict(r)
+        r["ctr"] = round(r["clicked"] / r["sent"] * 100, 2) if r["sent"] else None
+        out.append(r)
+    return out
+
+
+def compute_summary(series: dict) -> dict:
+    dau = series.get("dau", [])
+    last7 = dau[-7:]
+    return {
+        "dau_7d_avg": round(sum(r["users"] for r in last7) / len(last7), 1) if last7 else None,
+        "last_date": dau[-1]["date"] if dau else None,
+        "total_visits": sum(r["users"] for r in dau),
+    }
+
+
+def compute_headline(summaries: dict) -> dict:
+    dates = [s["last_date"] for s in summaries.values() if s.get("last_date")]
+    return {"label": "3앱 누적 방문",
+            "value": sum(s["total_visits"] for s in summaries.values()),
+            "as_of": max(dates) if dates else None}
+
+
+def build(raw_dir, notes_dir, out_path, csv_dir) -> dict:
+    data = load_raw(Path(raw_dir))
+    if not data:
+        raise SchemaError(f"{raw_dir}: raw 스냅샷이 없음")
+    apps = {}
+    for app_id, app_name in APPS.items():
+        series = {m: rows for (a, m), rows in data.items() if a == app_id}
+        if "push" in series:
+            series["push"] = with_ctr(series["push"])
+        apps[app_id] = {"name": app_name, "series": series, "summary": compute_summary(series)}
+    dashboard = {
+        "generated_at": datetime.now(timezone(timedelta(hours=9))).isoformat(timespec="seconds"),
+        "headline": compute_headline({k: v["summary"] for k, v in apps.items()}),
+        "apps": apps,
+        "notes": load_notes(notes_dir),
+    }
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(dashboard, ensure_ascii=False, indent=1), encoding="utf-8")
+    return dashboard
+
+
+ROOT = Path(__file__).resolve().parent.parent
+
+if __name__ == "__main__":
+    build(ROOT / "data" / "raw", ROOT / "notes",
+          ROOT / "data" / "dashboard.json", ROOT / "data" / "csv")
+    print("OK: data/dashboard.json 생성")

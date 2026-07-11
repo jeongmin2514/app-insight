@@ -7,6 +7,8 @@ import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import pandas as pd
+
 APPS = {"gureum": "구름한입", "jobflow": "잡플로우", "dailypick": "데일리픽"}
 ALLOWED_METRICS = {
     "dau": {"users"},
@@ -131,6 +133,24 @@ def compute_headline(summaries: dict) -> dict:
             "as_of": max(dates) if dates else None}
 
 
+def export_csv(data: dict, csv_dir: Path) -> None:
+    """Tableau 2차용. metrics.csv = tidy long, push.csv = 캠페인 단위 + ctr."""
+    csv_dir = Path(csv_dir)
+    csv_dir.mkdir(parents=True, exist_ok=True)
+    records, push_records = [], []
+    for (app, metric), rows in data.items():
+        if metric == "push":
+            push_records += [{"app": app, **r} for r in with_ctr(rows)]
+            continue
+        for r in rows:
+            records += [{"app": app, "metric": metric, "date": r["date"], "field": f, "value": v}
+                        for f, v in r.items() if f != "date" and v is not None]
+    pd.DataFrame(records, columns=["app", "metric", "date", "field", "value"]) \
+        .to_csv(csv_dir / "metrics.csv", index=False, encoding="utf-8-sig")
+    if push_records:
+        pd.DataFrame(push_records).to_csv(csv_dir / "push.csv", index=False, encoding="utf-8-sig")
+
+
 def build(raw_dir, notes_dir, out_path, csv_dir) -> dict:
     data = load_raw(Path(raw_dir))
     if not data:
@@ -150,6 +170,7 @@ def build(raw_dir, notes_dir, out_path, csv_dir) -> dict:
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(dashboard, ensure_ascii=False, indent=1), encoding="utf-8")
+    export_csv(data, Path(csv_dir))
     return dashboard
 
 

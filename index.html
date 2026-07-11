@@ -53,9 +53,9 @@
   .card .krow .d { font-size:10.5px; }
   .card .spark { height:42px; margin-top:8px; }
   .tabs { display:flex; gap:6px; margin:6px 0 14px; }
-  .tabs button { flex:1; padding:11px 0; border:1px solid #fff; background:rgba(255,255,255,.65);
+  .tabs button { flex:1 1 0; min-width:0; padding:11px 0; border:1px solid #fff; background:#fff;
                  border-radius:14px; font-size:14px; font-weight:600; color:var(--ink2);
-                 cursor:pointer; font-family:inherit; box-shadow:0 2px 8px rgba(42,66,90,.05); }
+                 cursor:pointer; font-family:inherit; box-shadow:var(--shadow); }
   .tabs button.on { background:var(--ink); color:#fff; border-color:var(--ink);
                     box-shadow:0 6px 16px rgba(26,43,63,.25); }
   .panel { display:none; } .panel.on { display:block; }
@@ -195,19 +195,20 @@ const delta = (wow, base) => {
 const eventLines = {
   id: 'eventLines',
   afterDatasetsDraw(chart, args, opts) {
-    (opts.events || []).forEach(ev => {
+    (opts.events || []).forEach((ev, n) => {
       const i = chart.data.labels.indexOf(md(ev.date));
       if (i < 0) return;
       const x = chart.scales.x.getPixelForValue(i);
       const { top, bottom } = chart.chartArea;
+      const yLab = top + 8 + (n % 2) * 13;   // 인접 이벤트 라벨 겹침 방지 — 높이 교차
       const ctx = chart.ctx;
       ctx.save();
       ctx.strokeStyle = 'rgba(160,112,48,.55)'; ctx.setLineDash([4, 3]); ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(x, top + 14); ctx.lineTo(x, bottom); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x, yLab + 6); ctx.lineTo(x, bottom); ctx.stroke();
       ctx.setLineDash([]);
       ctx.font = '700 10px Pretendard, sans-serif'; ctx.fillStyle = '#a07030';
       ctx.textAlign = 'center';
-      ctx.fillText('📍' + ev.label.split(' (')[0], Math.min(Math.max(x, 46), chart.width - 46), top + 8);
+      ctx.fillText('📍' + ev.label.split(' (')[0], Math.min(Math.max(x, 46), chart.width - 46), yLab);
       ctx.restore();
     });
   }
@@ -246,22 +247,23 @@ function retentionTable(rows) {
   const latest = rows.filter(r => r.date === rows[rows.length - 1].date);
   const sorted = [...latest].sort((a, b) => (b.w1 ?? -1) - (a.w1 ?? -1));
   const max = Math.max(...sorted.map(r => r.w1 ?? 0), 0.0001);
+  const wk = (r, k) => k in r ? pct(r[k]) : '—';
   return `<div class="tscroll"><table>
-    <thead><tr><th>유입경로</th><th>첫주 유입</th><th style="text-align:left;padding-left:14px">1주차 재방문율</th><th>4주차</th></tr></thead>
+    <thead><tr><th>유입경로</th><th>첫주 유입</th><th style="text-align:left;padding-left:14px">1주차 재방문율</th><th>2주차</th><th>3주차</th><th>4주차</th></tr></thead>
     <tbody>${sorted.map(r => {
       const small = r.first_users < 10;
       return `<tr class="${small ? 'smalln' : ''}">
       <td>${r.cohort}${small ? ' ⚠' : ''}</td><td>${fmt(r.first_users)}명</td>
       <td style="text-align:left;padding-left:14px"><span class="rbar">
-        <span class="bar" style="width:${Math.round((r.w1 ?? 0) / max * 110)}px;background:${bucket(r.w1)}"></span>
+        <span class="bar" style="width:${Math.round((r.w1 ?? 0) / max * 90)}px;background:${small ? '#b6c0ca' : bucket(r.w1)}"></span>
         <span class="val">${pct(r.w1)}</span></span></td>
-      <td>${'w4' in r ? pct(r.w4) : '—'}</td></tr>`;}).join('')}
+      <td>${wk(r, 'w2')}</td><td>${wk(r, 'w3')}</td><td>${wk(r, 'w4')}</td></tr>`;}).join('')}
     </tbody></table></div>
     <div class="legend-note">1주차 재방문율
       <span class="dot" style="background:${C.good}"></span>20% 이상
       <span class="dot" style="background:${C.mid}"></span>5~20%
       <span class="dot" style="background:${C.low}"></span>5% 미만
-      &nbsp;·&nbsp; ⚠ 표본 10명 미만(해석 주의)</div>`;
+      <span class="dot" style="background:#b6c0ca"></span>⚠ 표본 10명 미만(해석 주의)</div>`;
 }
 
 function mixBar(rows) {
@@ -318,8 +320,8 @@ fetch('data/dashboard.json').then(r => r.json()).then(d => {
     cards.insertAdjacentHTML('beforeend', `<div class="card"><h3>${app.name}</h3>
       <div class="krow">
         <div><div class="l">누적 방문</div><div class="v">${fmt(s.total_visits)}</div></div>
-        <div><div class="l">주간 방문</div><div class="v">${fmt(s.visits_7d)}</div>
-          <div class="d">${delta(s.wow, s.visits_7d)}</div></div>
+        <div><div class="l">주간 방문</div><div class="v">${fmt(s.visits_7d)}
+          <span class="delta ${s.wow > 0 ? 'up' : s.wow < 0 ? 'down' : 'flat'}" style="font-size:11px">${s.wow == null ? '' : (s.wow > 0 ? '▲' : s.wow < 0 ? '▼' : '') + Math.abs(s.wow) + '%'}</span></div></div>
         <div><div class="l">주간 신규</div><div class="v">${fmt(s.new_7d)}</div></div>
       </div>
       <div class="spark"><canvas id="spark-${id}"></canvas></div></div>`);

@@ -42,12 +42,50 @@ def test_compute_summary_last7():
     s = compute_summary({"dau": dau})
     assert s["dau_7d_avg"] == 7.0 and s["last_date"] == "2026-07-10" and s["total_visits"] == 55
 
+def test_compute_summary_weekly_windows_calendar_based():
+    # 7/4~7/10 = 4+..+10 = 49, 6/27~7/3 창에는 7/1~7/3(1+2+3=6)만 존재 (결측은 0 아님·그냥 없음)
+    dau = [{"date": f"2026-07-{d:02d}", "users": d, "new_users": 1} for d in range(1, 11)]
+    s = compute_summary({"dau": dau})
+    assert s["visits_7d"] == 49 and s["visits_prev_7d"] == 6
+    assert s["new_7d"] == 7
+    assert s["wow"] == round((49 - 6) / 6 * 100, 1)
+
+def test_compute_summary_wow_none_when_no_prev():
+    dau = [{"date": "2026-07-10", "users": 5, "new_users": 2}]
+    s = compute_summary({"dau": dau})
+    assert s["visits_prev_7d"] == 0 and s["wow"] is None
+
 def test_compute_headline_sums_apps():
     h = compute_headline({
         "gureum": {"total_visits": 100, "last_date": "2026-07-10"},
         "jobflow": {"total_visits": 50, "last_date": "2026-07-09"},
     })
     assert h["value"] == 150 and h["as_of"] == "2026-07-10"
+
+def test_build_includes_events_and_experiments(tmp_path):
+    raw = tmp_path / "raw"; (raw / "gureum").mkdir(parents=True)
+    (raw / "gureum" / "dau-2026-07-11.json").write_text(json.dumps({
+        "app": "gureum", "metric": "dau", "fetched_at": "2026-07-11T00:00:00+09:00",
+        "rows": [{"date": "2026-07-10", "users": 12}]}), encoding="utf-8")
+    (tmp_path / "events.json").write_text(json.dumps(
+        [{"app": "gureum", "date": "2026-07-10", "label": "푸시 발송"}]), encoding="utf-8")
+    (tmp_path / "experiments.json").write_text(json.dumps([{
+        "date": "2026-06", "title": "t", "problem": "p", "hypothesis": "h",
+        "action": "a", "result": "r", "decision": "d", "status": "완료"}]), encoding="utf-8")
+    d = build(raw, tmp_path / "notes", tmp_path / "dashboard.json", tmp_path / "csv",
+              events_path=tmp_path / "events.json", experiments_path=tmp_path / "experiments.json")
+    assert d["apps"]["gureum"]["events"] == [{"date": "2026-07-10", "label": "푸시 발송"}]
+    assert d["experiments"][0]["status"] == "완료"
+
+def test_experiments_missing_key_fails(tmp_path):
+    raw = tmp_path / "raw"; (raw / "gureum").mkdir(parents=True)
+    (raw / "gureum" / "dau-2026-07-11.json").write_text(json.dumps({
+        "app": "gureum", "metric": "dau", "fetched_at": "2026-07-11T00:00:00+09:00",
+        "rows": [{"date": "2026-07-10", "users": 12}]}), encoding="utf-8")
+    (tmp_path / "experiments.json").write_text(json.dumps([{"date": "2026-06"}]), encoding="utf-8")
+    with pytest.raises(SchemaError, match="experiments"):
+        build(raw, tmp_path / "notes", tmp_path / "dashboard.json", tmp_path / "csv",
+              experiments_path=tmp_path / "experiments.json")
 
 def test_build_end_to_end(tmp_path):
     raw = tmp_path / "raw"; (raw / "gureum").mkdir(parents=True)

@@ -9,24 +9,45 @@
 <style>
   :root {
     --ink:#1A2B3F; --ink2:#5b6b7e; --muted:#8a97a6;
-    --s1:#1F7EC2; --s2:#B8740F;           /* 검증 통과 시리즈 팔레트 */
+    --s1:#1F7EC2; --s2:#B8740F;                      /* 시리즈 (검증 통과) */
+    --good:#2E7D32; --mid:#1F7EC2; --low:#C62828;    /* 코호트 상태 */
     --paper:#fcfcfb; --card:#ffffff; --line:#e4e8ec; --gold:#a07030;
+    --up:#2E7D32; --down:#C62828;
   }
   * { box-sizing:border-box; margin:0; }
   body { font-family:Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
-         background:var(--paper); color:var(--ink); word-break:keep-all; line-height:1.65; }
+         background:var(--paper); color:var(--ink); word-break:keep-all; line-height:1.6; }
   .wrap { max-width:880px; margin:0 auto; padding:24px 16px 64px; }
-  header { text-align:center; padding:36px 0 8px; }
+  header { text-align:center; padding:30px 0 4px; }
   .eyebrow { font-size:11px; letter-spacing:.16em; color:var(--gold); font-weight:700; }
-  h1 { font-size:22px; margin:8px 0 26px; letter-spacing:-.01em; }
-  .headline-num { font-size:58px; font-weight:800; letter-spacing:-.03em; line-height:1.1; }
-  .headline-label { color:var(--ink2); font-size:14px; margin-top:4px; }
-  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:28px 0 20px; }
+  h1 { font-size:22px; margin:8px 0 18px; letter-spacing:-.01em; }
+  .headline-num { font-size:44px; font-weight:800; letter-spacing:-.03em; line-height:1.1; }
+  .headline-label { color:var(--ink2); font-size:13px; margin-top:2px; }
+  .delta { font-size:13px; font-weight:700; }
+  .delta.up { color:var(--up); } .delta.down { color:var(--down); } .delta.flat { color:var(--muted); }
+  .kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0 8px; }
+  @media (max-width:600px){ .kpis{ grid-template-columns:repeat(3,1fr); gap:6px; } }
+  .kpi { background:var(--card); border:1px solid var(--line); border-radius:12px;
+         padding:12px 10px; text-align:center; }
+  .kpi .l { font-size:11px; color:var(--ink2); }
+  .kpi .v { font-size:22px; font-weight:800; margin:2px 0; font-variant-numeric:tabular-nums; }
+  .kpi .d { font-size:11px; }
+  .weekly-insights { background:var(--card); border:1px solid var(--line); border-radius:12px;
+                     padding:12px 16px; margin-bottom:6px; font-size:13px; }
+  .weekly-insights b { font-size:12px; color:var(--gold); letter-spacing:.08em; }
+  .weekly-insights ul { margin:6px 0 0 2px; list-style:none; }
+  .weekly-insights li { padding:2px 0; color:var(--ink); }
+  .weekly-insights li::before { content:'·'; font-weight:900; margin-right:7px; color:var(--s1); }
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0; }
   @media (max-width:600px){ .cards{ grid-template-columns:1fr; } }
   .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 10px; }
   .card h3 { font-size:15px; font-weight:700; }
-  .card .sub { font-size:12px; color:var(--ink2); margin-top:2px; }
-  .card .spark { height:46px; margin-top:10px; }
+  .card .krow { display:flex; gap:14px; margin-top:8px; }
+  .card .krow div { flex:1; }
+  .card .krow .l { font-size:10.5px; color:var(--ink2); }
+  .card .krow .v { font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .card .krow .d { font-size:10.5px; }
+  .card .spark { height:42px; margin-top:8px; }
   .tabs { display:flex; gap:6px; margin:6px 0 14px; }
   .tabs button { flex:1; padding:10px 0; border:1px solid var(--line); background:var(--card);
                  border-radius:10px; font-size:14px; font-weight:600; color:var(--ink2);
@@ -35,29 +56,52 @@
   .panel { display:none; } .panel.on { display:block; }
   .box { background:var(--card); border:1px solid var(--line); border-radius:14px;
          padding:18px 18px 14px; margin-bottom:12px; }
-  .box h4 { font-size:14px; font-weight:700; }
+  .box h4 { font-size:14px; font-weight:700; display:inline-block; }
   .box .desc { font-size:12px; color:var(--muted); margin:2px 0 12px; }
+  .range { float:right; display:flex; gap:4px; }
+  .range button { border:1px solid var(--line); background:var(--card); border-radius:8px;
+                  font-size:11px; padding:3px 9px; color:var(--ink2); cursor:pointer; font-family:inherit; }
+  .range button.on { background:var(--s1); border-color:var(--s1); color:#fff; }
   .chart-h { height:230px; }
-  table { width:100%; border-collapse:collapse; font-size:13px; }
+  .tscroll { overflow-x:auto; }
+  table { width:100%; min-width:430px; border-collapse:collapse; font-size:13px; }
   th, td { padding:9px 6px; border-bottom:1px solid var(--line); text-align:right;
-           font-variant-numeric:tabular-nums; }
+           font-variant-numeric:tabular-nums; white-space:nowrap; }
   th { color:var(--ink2); font-weight:600; font-size:12px; }
   th:first-child, td:first-child { text-align:left; }
   tr:last-child td { border-bottom:none; }
   .rbar { display:flex; align-items:center; gap:8px; }
-  .rbar .bar { height:10px; border-radius:4px; background:var(--s1); min-width:2px; flex:none; }
+  .rbar .bar { height:10px; border-radius:4px; min-width:2px; flex:none; }
   .rbar .val { font-weight:700; }
+  .smalln { color:var(--muted); }
+  .smalln .bar { opacity:.4; }
+  .legend-note { font-size:11px; color:var(--muted); margin-top:8px; }
+  .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin:0 4px 0 10px; vertical-align:baseline; }
+  .mix { margin-top:4px; }
+  .mixbar { display:flex; gap:2px; height:14px; border-radius:5px; overflow:hidden; margin:8px 0 8px; }
+  .mixbar span { display:block; height:100%; }
+  .mixlegend { display:flex; flex-wrap:wrap; gap:4px 14px; font-size:12px; color:var(--ink2); }
   .caveat { font-size:12px; color:var(--muted); margin-top:10px; }
-  .notes h2 { font-size:18px; margin:34px 0 4px; }
-  .notes .desc { font-size:13px; color:var(--ink2); margin-bottom:14px; }
+  section h2 { font-size:18px; margin:34px 0 4px; }
+  section .desc { font-size:13px; color:var(--ink2); margin-bottom:14px; }
   .note { background:var(--card); border:1px solid var(--line); border-left:3px solid var(--gold);
-          border-radius:12px; padding:16px 18px; margin-bottom:10px; }
+          border-radius:12px; padding:14px 18px; margin-bottom:10px; }
   .note .d { font-size:12px; color:var(--muted); }
-  .note b.t { display:block; font-size:15px; margin:3px 0 10px; }
-  .note p { font-size:13.5px; color:var(--ink); margin-bottom:8px; }
-  .note p:last-child { margin-bottom:0; }
-  .note .k { display:inline-block; font-size:11px; font-weight:700; color:var(--gold);
-             letter-spacing:.08em; margin-right:6px; }
+  .note b.t { display:block; font-size:15px; margin:2px 0 10px; }
+  .steps { display:grid; grid-template-columns:56px 1fr; gap:4px 10px; font-size:13px; }
+  .steps .k { font-size:11px; font-weight:700; color:var(--gold); letter-spacing:.06em;
+              padding-top:2px; text-align:right; }
+  .exp { background:var(--card); border:1px solid var(--line); border-radius:12px;
+         padding:16px 18px; margin-bottom:10px; }
+  .exp .head { display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .exp .d { font-size:12px; color:var(--muted); }
+  .exp b.t { font-size:15px; }
+  .exp .badge { font-size:11px; font-weight:700; border-radius:20px; padding:2px 10px; flex:none; }
+  .exp .badge.done { background:#e7f2e9; color:var(--good); }
+  .exp .badge.run { background:#e8f1f9; color:var(--s1); }
+  .exp .steps { margin-top:10px; grid-template-columns:70px 1fr; }
+  .exp .steps .k { color:var(--ink2); }
+  .exp .steps .hl { font-weight:700; }
   footer { text-align:center; font-size:12px; color:var(--muted); margin-top:44px; line-height:1.9; }
   footer a { color:var(--s1); }
   .err { text-align:center; color:var(--ink2); padding:40px 0; }
@@ -72,18 +116,30 @@
     <div class="headline-label" id="hLabel"></div>
   </header>
 
+  <div class="kpis" id="kpis"></div>
+  <div class="weekly-insights" id="weekly" hidden>
+    <b>이번 주 핵심 인사이트</b>
+    <ul id="weeklyList"></ul>
+  </div>
+
   <div class="cards" id="cards"></div>
   <div class="tabs" id="tabs" role="tablist"></div>
   <div id="panels"></div>
 
-  <section class="notes">
+  <section>
+    <h2>Experiment History</h2>
+    <div class="desc">문제 → 가설 → 실행 → 결과 → 결정. 분석이 의사결정으로 이어진 기록</div>
+    <div id="exps"></div>
+  </section>
+
+  <section>
     <h2>인사이트 노트</h2>
-    <div class="desc">숫자에서 멈추지 않기 위한 기록 — 관찰 · 해석 · 다음 액션</div>
+    <div class="desc">숫자에서 멈추지 않기 위한 기록 — 관찰 · 해석 · 액션</div>
     <div id="notes"></div>
   </section>
 
   <footer>
-    토스 콘솔 지표 → Python 가공 → 정적 배포, 주 1~2회 반자동 수집 · <span id="gen"></span> 빌드<br>
+    <span id="src"></span><br>
     수집 누락 구간은 보간 없이 공백으로 표시합니다 ·
     <a href="https://github.com/jeongmin2514/app-insight">GitHub — 파이프라인 코드 · 지표 정의</a>
   </footer>
@@ -93,7 +149,38 @@
 const fmt = n => n == null ? '—' : n.toLocaleString('ko-KR');
 const pct = v => v == null ? '—' : (v * 100).toFixed(v * 100 >= 10 ? 1 : 2) + '%';
 const md = d => d.slice(5).replace('-', '/');
-const C = { s1:'#1F7EC2', s2:'#B8740F', ink2:'#5b6b7e', grid:'#eef1f4' };
+const C = { s1:'#1F7EC2', s2:'#B8740F', ink2:'#5b6b7e', grid:'#eef1f4',
+            good:'#2E7D32', mid:'#1F7EC2', low:'#C62828' };
+const CH_COLORS = { '전체탭':'#1F7EC2', '푸시알림':'#B8740F', '기타':'#199A78',
+                    '미니앱홈':'#7C58C2', '검색':'#C2537A' };  /* 5색 검증 통과 */
+const delta = (wow, base) => {
+  if (wow == null || base === 0) return `<span class="delta flat">— 전주 대비</span>`;
+  const cls = wow > 0 ? 'up' : wow < 0 ? 'down' : 'flat';
+  const arrow = wow > 0 ? '▲' : wow < 0 ? '▼' : '';
+  return `<span class="delta ${cls}">${arrow}${Math.abs(wow)}% <span style="font-weight:400;color:var(--muted)">전주 대비</span></span>`;
+};
+
+/* 이벤트 세로선 주석 플러그인 */
+const eventLines = {
+  id: 'eventLines',
+  afterDatasetsDraw(chart, args, opts) {
+    (opts.events || []).forEach(ev => {
+      const i = chart.data.labels.indexOf(md(ev.date));
+      if (i < 0) return;
+      const x = chart.scales.x.getPixelForValue(i);
+      const { top, bottom } = chart.chartArea;
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(160,112,48,.55)'; ctx.setLineDash([4, 3]); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x, top + 14); ctx.lineTo(x, bottom); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font = '700 10px Pretendard, sans-serif'; ctx.fillStyle = '#a07030';
+      ctx.textAlign = 'center';
+      ctx.fillText('📍' + ev.label.split(' (')[0], Math.min(Math.max(x, 46), chart.width - 46), top + 8);
+      ctx.restore();
+    });
+  }
+};
 
 function sparkline(el, rows) {
   new Chart(el, { type:'line',
@@ -104,68 +191,130 @@ function sparkline(el, rows) {
       scales:{ x:{ display:false }, y:{ display:false } } } });
 }
 
-function dauChart(el, rows) {
-  new Chart(el, { type:'line',
+function dauChart(el, rows, events) {
+  return new Chart(el, { type:'line',
     data:{ labels:rows.map(r => md(r.date)), datasets:[
       { label:'전체 사용자', data:rows.map(r => r.users), borderColor:C.s1,
         backgroundColor:C.s1, borderWidth:2, pointRadius:2, pointHoverRadius:5, tension:.25 },
       { label:'신규 사용자', data:rows.map(r => r.new_users ?? null), borderColor:C.s2,
         backgroundColor:C.s2, borderWidth:2, pointRadius:2, pointHoverRadius:5, tension:.25 }
     ]},
+    plugins:[eventLines],
     options:{ maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
-      plugins:{ legend:{ position:'top', align:'end',
-                  labels:{ boxWidth:8, boxHeight:8, usePointStyle:true, font:{ size:11 } } } },
+      layout:{ padding:{ top:6 } },
+      plugins:{ eventLines:{ events },
+        legend:{ position:'top', align:'end',
+          labels:{ boxWidth:8, boxHeight:8, usePointStyle:true, font:{ size:11 } } } },
       scales:{ x:{ grid:{ display:false }, ticks:{ maxTicksLimit:8, font:{ size:11 }, color:C.ink2 } },
                y:{ beginAtZero:true, grid:{ color:C.grid }, ticks:{ font:{ size:11 }, color:C.ink2 } } } } });
 }
+
+const bucket = w1 => w1 == null ? C.mid : w1 >= 0.2 ? C.good : w1 >= 0.05 ? C.mid : C.low;
 
 function retentionTable(rows) {
   const latest = rows.filter(r => r.date === rows[rows.length - 1].date);
   const sorted = [...latest].sort((a, b) => (b.w1 ?? -1) - (a.w1 ?? -1));
   const max = Math.max(...sorted.map(r => r.w1 ?? 0), 0.0001);
-  return `<table>
+  return `<div class="tscroll"><table>
     <thead><tr><th>유입경로</th><th>첫주 유입</th><th style="text-align:left;padding-left:14px">1주차 재방문율</th><th>4주차</th></tr></thead>
-    <tbody>${sorted.map(r => `<tr>
-      <td>${r.cohort}</td><td>${fmt(r.first_users)}명</td>
+    <tbody>${sorted.map(r => {
+      const small = r.first_users < 10;
+      return `<tr class="${small ? 'smalln' : ''}">
+      <td>${r.cohort}${small ? ' ⚠' : ''}</td><td>${fmt(r.first_users)}명</td>
       <td style="text-align:left;padding-left:14px"><span class="rbar">
-        <span class="bar" style="width:${Math.round((r.w1 ?? 0) / max * 120)}px"></span>
+        <span class="bar" style="width:${Math.round((r.w1 ?? 0) / max * 110)}px;background:${bucket(r.w1)}"></span>
         <span class="val">${pct(r.w1)}</span></span></td>
-      <td>${'w4' in r ? pct(r.w4) : '—'}</td></tr>`).join('')}
-    </tbody></table>`;
+      <td>${'w4' in r ? pct(r.w4) : '—'}</td></tr>`;}).join('')}
+    </tbody></table></div>
+    <div class="legend-note">1주차 재방문율
+      <span class="dot" style="background:${C.good}"></span>20% 이상
+      <span class="dot" style="background:${C.mid}"></span>5~20%
+      <span class="dot" style="background:${C.low}"></span>5% 미만
+      &nbsp;·&nbsp; ⚠ 표본 10명 미만(해석 주의)</div>`;
+}
+
+function mixBar(rows) {
+  const latest = rows.filter(r => r.date === rows[rows.length - 1].date);
+  const total = latest.reduce((s, r) => s + r.first_users, 0);
+  if (!total) return '';
+  const sorted = [...latest].sort((a, b) => b.first_users - a.first_users);
+  return `<div class="mix">
+    <div class="mixbar">${sorted.map(r =>
+      `<span style="flex:${r.first_users};background:${CH_COLORS[r.cohort] || '#999'}"></span>`).join('')}</div>
+    <div class="mixlegend">${sorted.map(r =>
+      `<span><span class="dot" style="margin-left:0;background:${CH_COLORS[r.cohort] || '#999'}"></span>${r.cohort} ${(r.first_users / total * 100).toFixed(1)}%</span>`).join('')}</div>
+  </div>`;
 }
 
 fetch('data/dashboard.json').then(r => r.json()).then(d => {
-  document.getElementById('hNum').textContent = fmt(d.headline.value);
-  document.getElementById('hLabel').textContent =
-    `${d.headline.label} · ${d.headline.as_of || ''} 기준`;
-  document.getElementById('gen').textContent = d.generated_at.slice(0, 10);
+  const h = d.headline;
+  document.getElementById('hNum').textContent = fmt(h.value);
+  document.getElementById('hLabel').textContent = `${h.label} · ${h.as_of || ''} 기준`;
+  document.getElementById('src').textContent =
+    `Source 토스 앱인토스 콘솔 API → Python(pandas) 가공 → 정적 배포 · 주 1~2회 반자동 수집 · Last updated ${d.generated_at.replace('T', ' ').slice(0, 16)} KST`;
+
+  const returning = h.visits_7d - h.new_7d;
+  const prevReturning = h.visits_prev_7d - h.new_prev_7d;
+  const retWow = prevReturning > 0 ? Math.round((returning - prevReturning) / prevReturning * 1000) / 10 : null;
+  document.getElementById('kpis').innerHTML = [
+    ['주간 방문', h.visits_7d, h.wow],
+    ['주간 신규', h.new_7d, h.new_wow],
+    ['주간 재방문', returning, retWow],
+  ].map(([l, v, w]) => `<div class="kpi"><div class="l">${l} <span style="font-weight:400">(최근 7일)</span></div>
+    <div class="v">${fmt(v)}</div><div class="d">${delta(w, v)}</div></div>`).join('');
+
+  if (d.notes.length) {
+    document.getElementById('weekly').hidden = false;
+    document.getElementById('weeklyList').innerHTML =
+      d.notes.slice(0, 3).map(n => `<li>${n.title}</li>`).join('');
+  }
 
   const cards = document.getElementById('cards'), tabs = document.getElementById('tabs'),
         panels = document.getElementById('panels');
 
   Object.entries(d.apps).forEach(([id, app], i) => {
-    const dau = app.series.dau || [];
+    const dau = app.series.dau || [], s = app.summary;
     cards.insertAdjacentHTML('beforeend', `<div class="card"><h3>${app.name}</h3>
-      <div class="sub">누적 방문 ${fmt(app.summary.total_visits)} · 최근 7일 평균 ${fmt(app.summary.dau_7d_avg)}</div>
+      <div class="krow">
+        <div><div class="l">누적 방문</div><div class="v">${fmt(s.total_visits)}</div></div>
+        <div><div class="l">주간 방문</div><div class="v">${fmt(s.visits_7d)}</div>
+          <div class="d">${delta(s.wow, s.visits_7d)}</div></div>
+        <div><div class="l">주간 신규</div><div class="v">${fmt(s.new_7d)}</div></div>
+      </div>
       <div class="spark"><canvas id="spark-${id}"></canvas></div></div>`);
     tabs.insertAdjacentHTML('beforeend',
       `<button role="tab" data-t="${id}" class="${i === 0 ? 'on' : ''}">${app.name}</button>`);
 
     const ret = app.series.retention_ref;
     panels.insertAdjacentHTML('beforeend', `<div class="panel ${i === 0 ? 'on' : ''}" id="p-${id}">
-      <div class="box"><h4>일별 사용자</h4>
-        <div class="desc">전체 vs 신규 — 두 선이 붙어 있으면 유입이 전부 새 유저(재방문 없음)라는 뜻</div>
+      <div class="box">
+        <h4>일별 사용자</h4>
+        <div class="range" data-chart="${id}">
+          <button data-days="30">최근 30일</button><button data-days="0" class="on">전체</button>
+        </div>
+        <div class="desc">전체 vs 신규 — 두 선이 붙어 있으면 유입이 전부 새 유저(재방문 없음) · 📍 운영 이벤트</div>
         ${dau.length ? `<div class="chart-h"><canvas id="dau-${id}"></canvas></div>`
                      : `<div class="caveat">초기 계측 중 — 수집 시작 2026-07-11</div>`}</div>
-      ${ret ? `<div class="box"><h4>유입경로별 리텐션 코호트</h4>
-        <div class="desc">어디서 들어온 유저가 남는가 (주 단위, ${ret[ret.length - 1].date} 기준)</div>
+      ${ret ? `<div class="box"><h4>유입 구성과 리텐션</h4>
+        <div class="desc">어디서 들어왔고, 어디서 온 유저가 남는가 (주 단위, ${ret[ret.length - 1].date} 기준)</div>
+        ${mixBar(ret)}
         ${retentionTable(ret)}
         ${id === 'jobflow' ? `<div class="caveat">⚠️ 콘솔 리텐션 코호트 산정 기준이 일별 유입 집계와 달라 첫주 유입 수가 실제 출시 스파이크(일 112~168명)와 어긋납니다. 원값 그대로 표시.</div>` : ''}</div>` : ''}
     </div>`);
 
     if (dau.length) {
       sparkline(document.getElementById(`spark-${id}`), dau.slice(-30));
-      dauChart(document.getElementById(`dau-${id}`), dau);
+      const chart = dauChart(document.getElementById(`dau-${id}`), dau, app.events || []);
+      document.querySelector(`.range[data-chart="${id}"]`).addEventListener('click', e => {
+        const b = e.target.closest('button'); if (!b) return;
+        e.currentTarget.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+        const days = +b.dataset.days;
+        const rows = days ? dau.slice(-days) : dau;
+        chart.data.labels = rows.map(r => md(r.date));
+        chart.data.datasets[0].data = rows.map(r => r.users);
+        chart.data.datasets[1].data = rows.map(r => r.new_users ?? null);
+        chart.update();
+      });
     }
   });
 
@@ -176,13 +325,25 @@ fetch('data/dashboard.json').then(r => r.json()).then(d => {
       p.classList.toggle('on', p.id === 'p-' + b.dataset.t));
   });
 
+  document.getElementById('exps').innerHTML = d.experiments.map(x => `<div class="exp">
+    <div class="head"><div><span class="d">${x.date}</span><br><b class="t">${x.title}</b></div>
+      <span class="badge ${x.status === '완료' ? 'done' : 'run'}">${x.status}</span></div>
+    <div class="steps">
+      <span class="k">문제</span><span>${x.problem}</span>
+      <span class="k">가설</span><span>${x.hypothesis}</span>
+      <span class="k">실행</span><span>${x.action}</span>
+      <span class="k">결과</span><span class="hl">${x.result}</span>
+      <span class="k">결정</span><span>${x.decision}</span>
+    </div></div>`).join('') || '<div class="caveat">기록 없음</div>';
+
   document.getElementById('notes').innerHTML = d.notes.map(n => `<div class="note">
     <div class="d">${n.date} · ${d.apps[n.app]?.name || n.app}</div>
     <b class="t">${n.title}</b>
-    <p><span class="k">관찰</span>${n.observe}</p>
-    <p><span class="k">해석</span>${n.interpret}</p>
-    <p><span class="k">액션</span>${n.action}</p></div>`).join('')
-    || '<div class="caveat">노트 없음</div>';
+    <div class="steps">
+      <span class="k">관찰</span><span>${n.observe}</span>
+      <span class="k">해석</span><span>${n.interpret}</span>
+      <span class="k">액션</span><span>${n.action}</span>
+    </div></div>`).join('') || '<div class="caveat">노트 없음</div>';
 }).catch(e => {
   document.querySelector('.wrap').insertAdjacentHTML('beforeend',
     '<div class="err">데이터를 불러오지 못했습니다.</div>');

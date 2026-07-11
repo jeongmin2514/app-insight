@@ -119,21 +119,82 @@ def with_ctr(rows: list) -> list:
     return out
 
 
+def _window_sum(rows: list, end: "datetime.date", days: int, field: str) -> int:
+    """end 포함 최근 days일(달력 기준) 합. 결측일은 0으로 채우지 않고 그냥 없음."""
+    from datetime import date, timedelta
+    start = end - timedelta(days=days - 1)
+    total = 0
+    for r in rows:
+        d = date.fromisoformat(r["date"])
+        if start <= d <= end:
+            total += r.get(field) or 0
+    return total
+
+
 def compute_summary(series: dict) -> dict:
+    from datetime import date, timedelta
     dau = series.get("dau", [])
-    last7 = dau[-7:]
+    if not dau:
+        return {"dau_7d_avg": None, "last_date": None, "total_visits": 0,
+                "visits_7d": 0, "visits_prev_7d": 0, "new_7d": 0, "new_prev_7d": 0, "wow": None}
+    end = date.fromisoformat(dau[-1]["date"])
+    prev_end = end - timedelta(days=7)
+    v7 = _window_sum(dau, end, 7, "users")
+    p7 = _window_sum(dau, prev_end, 7, "users")
     return {
-        "dau_7d_avg": round(sum(r["users"] for r in last7) / len(last7), 1) if last7 else None,
-        "last_date": dau[-1]["date"] if dau else None,
+        "dau_7d_avg": round(v7 / 7, 1),
+        "last_date": dau[-1]["date"],
         "total_visits": sum(r["users"] for r in dau),
+        "visits_7d": v7,
+        "visits_prev_7d": p7,
+        "new_7d": _window_sum(dau, end, 7, "new_users"),
+        "new_prev_7d": _window_sum(dau, prev_end, 7, "new_users"),
+        "wow": round((v7 - p7) / p7 * 100, 1) if p7 else None,
     }
+
+
+EXPERIMENT_KEYS = {"date", "title", "problem", "hypothesis", "action", "result", "decision", "status"}
+
+
+def load_experiments(path) -> list:
+    path = Path(path)
+    if not path.exists():
+        return []
+    items = json.loads(path.read_text(encoding="utf-8"))
+    for i, x in enumerate(items):
+        missing = EXPERIMENT_KEYS - x.keys()
+        if missing:
+            raise SchemaError(f"experiments.json[{i}]: 필수 키 누락 {sorted(missing)}")
+    return items
+
+
+def load_events(path) -> dict:
+    """data/events.json → app별 [{date,label}] (수기 운영 로그)."""
+    path = Path(path)
+    if not path.exists():
+        return {}
+    out = {}
+    for i, e in enumerate(json.loads(path.read_text(encoding="utf-8"))):
+        missing = {"app", "date", "label"} - e.keys()
+        if missing:
+            raise SchemaError(f"events.json[{i}]: 필수 키 누락 {sorted(missing)}")
+        out.setdefault(e["app"], []).append({"date": e["date"], "label": e["label"]})
+    return out
 
 
 def compute_headline(summaries: dict) -> dict:
     dates = [s["last_date"] for s in summaries.values() if s.get("last_date")]
+    v7 = sum(s.get("visits_7d", 0) for s in summaries.values())
+    p7 = sum(s.get("visits_prev_7d", 0) for s in summaries.values())
+    n7 = sum(s.get("new_7d", 0) for s in summaries.values())
+    np7 = sum(s.get("new_prev_7d", 0) for s in summaries.values())
     return {"label": "3앱 누적 방문",
             "value": sum(s["total_visits"] for s in summaries.values()),
-            "as_of": max(dates) if dates else None}
+            "as_of": max(dates) if dates else None,
+            "visits_7d": v7, "visits_prev_7d": p7,
+            "wow": round((v7 - p7) / p7 * 100, 1) if p7 else None,
+            "new_7d": n7, "new_prev_7d": np7,
+            "new_wow": round((n7 - np7) / np7 * 100, 1) if np7 else None}
 
 
 def export_csv(data: dict, csv_dir: Path) -> None:
@@ -154,21 +215,25 @@ def export_csv(data: dict, csv_dir: Path) -> None:
         pd.DataFrame(push_records).to_csv(csv_dir / "push.csv", index=False, encoding="utf-8-sig")
 
 
-def build(raw_dir, notes_dir, out_path, csv_dir) -> dict:
+def build(raw_dir, notes_dir, out_path, csv_dir, events_path=None, experiments_path=None) -> dict:
     data = load_raw(Path(raw_dir))
     if not data:
         raise SchemaError(f"{raw_dir}: raw 스냅샷이 없음")
+    events = load_events(events_path) if events_path else {}
     apps = {}
     for app_id, app_name in APPS.items():
         series = {m: rows for (a, m), rows in data.items() if a == app_id}
         if "push" in series:
             series["push"] = with_ctr(series["push"])
-        apps[app_id] = {"name": app_name, "series": series, "summary": compute_summary(series)}
+        apps[app_id] = {"name": app_name, "series": series,
+                        "summary": compute_summary(series),
+                        "events": events.get(app_id, [])}
     dashboard = {
         "generated_at": datetime.now(timezone(timedelta(hours=9))).isoformat(timespec="seconds"),
         "headline": compute_headline({k: v["summary"] for k, v in apps.items()}),
         "apps": apps,
         "notes": load_notes(notes_dir),
+        "experiments": load_experiments(experiments_path) if experiments_path else [],
     }
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -181,5 +246,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 if __name__ == "__main__":
     build(ROOT / "data" / "raw", ROOT / "notes",
-          ROOT / "data" / "dashboard.json", ROOT / "data" / "csv")
+          ROOT / "data" / "dashboard.json", ROOT / "data" / "csv",
+          events_path=ROOT / "data" / "events.json",
+          experiments_path=ROOT / "data" / "experiments.json")
     print("OK: data/dashboard.json 생성")

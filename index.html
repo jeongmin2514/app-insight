@@ -110,11 +110,19 @@
   footer { text-align:center; font-size:12px; color:var(--muted); margin-top:44px; line-height:1.9; }
   footer a { color:var(--s1); }
   .err { text-align:center; color:var(--ink2); padding:40px 0; }
+  .anchor { display:none; }
+  @media (min-width:1260px) {
+    .anchor { display:block; position:fixed; top:140px; left:calc(50% + 470px); width:120px;
+              font-size:12.5px; line-height:2.1; }
+    .anchor a { display:block; color:var(--muted); text-decoration:none; padding-left:12px;
+                border-left:2px solid transparent; }
+    .anchor a:hover { color:var(--ink); border-left-color:var(--s1); }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
+  <header id="top">
     <div class="eyebrow">MINIAPP GROWTH DASHBOARD</div>
     <h1>토스 미니앱 3종 그로스 대시보드</h1>
     <div class="headline-num" id="hNum">—</div>
@@ -126,12 +134,22 @@
     <b>이번 주 핵심 인사이트</b>
     <ul id="weeklyList"></ul>
   </div>
+  <div class="weekly-insights" id="todayBox" hidden style="border-left:3px solid var(--s1);">
+    <b style="color:var(--s1)">오늘의 액션 <span id="todayDate" style="font-weight:400;color:var(--muted)"></span></b>
+    <ul id="todayList"></ul>
+  </div>
+
+  <nav class="anchor">
+    <a href="#top">주간 요약</a><a href="#apps">앱별 지표</a><a href="#ops">운영 로그</a>
+    <a href="#exph">실험 기록</a><a href="#insight">인사이트</a>
+  </nav>
 
   <div class="cards" id="cards"></div>
-  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="tabs" id="tabs" role="tablist" style="scroll-margin-top:20px;"></div>
+  <span id="apps"></span>
   <div id="panels"></div>
 
-  <section>
+  <section id="ops">
     <h2>운영 로그</h2>
     <div class="desc">날짜별 실행 액션 — 차트의 📍 표시와 연결됨</div>
     <div class="box" style="padding:8px 18px;">
@@ -139,13 +157,13 @@
     </div>
   </section>
 
-  <section>
+  <section id="exph">
     <h2>Experiment History</h2>
     <div class="desc">문제 → 가설 → 실행 → 결과 → 결정. 분석이 의사결정으로 이어진 기록</div>
     <div id="exps"></div>
   </section>
 
-  <section>
+  <section id="insight">
     <h2>인사이트 노트</h2>
     <div class="desc">숫자에서 멈추지 않기 위한 기록 — 관찰 · 해석 · 액션</div>
     <div id="notes"></div>
@@ -280,6 +298,16 @@ fetch('data/dashboard.json').then(r => r.json()).then(d => {
     document.getElementById('weekly').hidden = false;
     document.getElementById('weeklyList').innerHTML =
       d.notes.slice(0, 3).map(n => `<li>${n.title}</li>`).join('');
+  }
+
+  if (d.today_actions?.length) {
+    const latestDate = d.today_actions.reduce((m, a) => a.date > m ? a.date : m, '');
+    document.getElementById('todayBox').hidden = false;
+    document.getElementById('todayDate').textContent = '· ' + latestDate;
+    document.getElementById('todayList').innerHTML = d.today_actions
+      .filter(a => a.date === latestDate)
+      .map(a => `<li><b style="color:var(--ink)">${d.apps[a.app]?.name || a.app}</b> — ${a.action}` +
+        (a.basis ? ` <span style="color:var(--muted);font-size:12px">(${a.basis})</span>` : '') + `</li>`).join('');
   }
 
   const cards = document.getElementById('cards'), tabs = document.getElementById('tabs'),

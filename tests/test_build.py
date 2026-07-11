@@ -77,6 +77,21 @@ def test_build_includes_events_and_experiments(tmp_path):
     assert d["apps"]["gureum"]["events"] == [{"date": "2026-07-10", "label": "푸시 발송"}]
     assert d["experiments"][0]["status"] == "완료"
 
+def test_today_actions_loaded_and_validated(tmp_path):
+    raw = tmp_path / "raw"; (raw / "gureum").mkdir(parents=True)
+    (raw / "gureum" / "dau-2026-07-11.json").write_text(json.dumps({
+        "app": "gureum", "metric": "dau", "fetched_at": "2026-07-11T00:00:00+09:00",
+        "rows": [{"date": "2026-07-10", "users": 12}]}), encoding="utf-8")
+    (tmp_path / "ta.json").write_text(json.dumps(
+        [{"app": "gureum", "date": "2026-07-11", "action": "푸시 검토"}]), encoding="utf-8")
+    d = build(raw, tmp_path / "notes", tmp_path / "dashboard.json", tmp_path / "csv",
+              today_actions_path=tmp_path / "ta.json")
+    assert d["today_actions"][0]["action"] == "푸시 검토"
+    (tmp_path / "bad.json").write_text(json.dumps([{"app": "gureum"}]), encoding="utf-8")
+    with pytest.raises(SchemaError, match="today_actions"):
+        build(raw, tmp_path / "notes", tmp_path / "dashboard.json", tmp_path / "csv",
+              today_actions_path=tmp_path / "bad.json")
+
 def test_experiments_missing_key_fails(tmp_path):
     raw = tmp_path / "raw"; (raw / "gureum").mkdir(parents=True)
     (raw / "gureum" / "dau-2026-07-11.json").write_text(json.dumps({

@@ -1,0 +1,13 @@
+{
+  "app": "jobflow",
+  "metric": "retention_ref",
+  "fetched_at": "2026-07-12T15:01:00+09:00",
+  "range": {"start": "2026-06-09", "end": "2026-07-12"},
+  "rows": [
+    {"date": "2026-07-12", "cohort": "기타", "first_users": 44, "w1": 0.0, "w2": 0.0, "w3": 0.0},
+    {"date": "2026-07-12", "cohort": "전체탭", "first_users": 2, "w1": 0.0, "w2": 0.0, "w3": 0.0},
+    {"date": "2026-07-12", "cohort": "미니앱홈", "first_users": 3, "w1": 0.0, "w2": 0.0, "w3": 0.0},
+    {"date": "2026-07-12", "cohort": "검색", "first_users": 3, "w1": 0.0, "w2": 0.0}
+  ],
+  "source": {"note": "6월 출시라 콘솔에 3주차까지만. 전체탭 first_users=2는 DAU referrer와 어긋남(콘솔 코호트 산정 기준 상이). 원값 보존. date=as-of."}
+}

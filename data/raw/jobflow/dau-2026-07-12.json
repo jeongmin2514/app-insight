@@ -1,0 +1,16 @@
+{
+  "app": "jobflow",
+  "metric": "dau",
+  "fetched_at": "2026-07-12T15:00:00+09:00",
+  "range": {"start": "2026-07-06", "end": "2026-07-12"},
+  "rows": [
+    {"date": "2026-07-06", "users": 7, "new_users": 6},
+    {"date": "2026-07-07", "users": 3, "new_users": 2},
+    {"date": "2026-07-08", "users": 3, "new_users": 2},
+    {"date": "2026-07-09", "users": 5, "new_users": 3},
+    {"date": "2026-07-10", "users": 4, "new_users": 2},
+    {"date": "2026-07-11", "users": 1, "new_users": 0},
+    {"date": "2026-07-12", "users": 1, "new_users": 0}
+  ],
+  "source": {"note": "당일(7/12) 부분 집계 포함. 7/11 확정치(1)로 upsert(어제 결측이던 행 채움). 캐시 14:59 KST."}
+}

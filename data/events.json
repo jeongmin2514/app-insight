@@ -17,6 +17,7 @@
   {"app": "jobflow", "date": "2026-06-09", "label": "토스 미니앱 출시", "chart": false},
   {"app": "jobflow", "date": "2026-06-12", "label": "전체탭 노출 · 비즈니스 카테고리 1위 (유입 97% 전체탭)"},
   {"app": "jobflow", "date": "2026-07-11", "label": "재방문 트리거 기획 착수 - D-day 임박 알림 1순위, 요건 조사 대기", "chart": false},
+  {"app": "jobflow", "date": "2026-07-12", "label": "주간 취업 정리 푸시 배포 - 매주 일요일 20시 기능성 리캡, 재방문 트리거 첫 실행", "chart": false},
   {"app": "dailypick", "date": "2026-06-11", "label": "토스 미니앱 출시", "chart": false},
   {"app": "dailypick", "date": "2026-06-16", "label": "전체탭 노출 (유입 99% 전체탭)"},
   {"app": "dailypick", "date": "2026-07-11", "label": "리텐션 추이 점검 - 재방문 하루 0~2명, 6/16 스파이크 유입 260명 3주째 전환 없음", "chart": false}

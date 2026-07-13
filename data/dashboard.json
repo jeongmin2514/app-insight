@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-07-12T16:52:35+09:00",
+ "generated_at": "2026-07-13T13:58:09+09:00",
  "headline": {
   "label": "3앱 누적 방문",
-  "value": 2317,
-  "as_of": "2026-07-12",
-  "visits_7d": 72,
-  "visits_prev_7d": 85,
-  "wow": -15.3,
+  "value": 2326,
+  "as_of": "2026-07-13",
+  "visits_7d": 69,
+  "visits_prev_7d": 84,
+  "wow": -17.9,
   "new_7d": 33,
-  "new_prev_7d": 38,
-  "new_wow": -13.2
+  "new_prev_7d": 43,
+  "new_wow": -23.3
  },
  "apps": {
   "gureum": {
@@ -333,6 +333,11 @@
      },
      {
       "date": "2026-07-12",
+      "users": 4,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-13",
       "users": 2,
       "new_users": 0
      }
@@ -472,13 +477,13 @@
    },
    "summary": {
     "dau_7d_avg": 4.3,
-    "last_date": "2026-07-12",
-    "total_visits": 1084,
+    "last_date": "2026-07-13",
+    "total_visits": 1088,
     "visits_7d": 30,
-    "visits_prev_7d": 38,
+    "visits_prev_7d": 36,
     "new_7d": 9,
-    "new_prev_7d": 9,
-    "wow": -21.1
+    "new_prev_7d": 10,
+    "wow": -16.7
    },
    "events": [
     {
@@ -721,6 +726,11 @@
      },
      {
       "date": "2026-07-12",
+      "users": 3,
+      "new_users": 2
+     },
+     {
+      "date": "2026-07-13",
       "users": 1,
       "new_users": 0
      }
@@ -791,14 +801,14 @@
     ]
    },
    "summary": {
-    "dau_7d_avg": 3.4,
-    "last_date": "2026-07-12",
-    "total_visits": 500,
-    "visits_7d": 24,
-    "visits_prev_7d": 17,
-    "new_7d": 15,
-    "new_prev_7d": 11,
-    "wow": 41.2
+    "dau_7d_avg": 2.9,
+    "last_date": "2026-07-13",
+    "total_visits": 503,
+    "visits_7d": 20,
+    "visits_prev_7d": 23,
+    "new_7d": 11,
+    "new_prev_7d": 17,
+    "wow": -13.0
    },
    "events": [
     {
@@ -978,7 +988,12 @@
      },
      {
       "date": "2026-07-12",
-      "users": 3,
+      "users": 4,
+      "new_users": 4
+     },
+     {
+      "date": "2026-07-13",
+      "users": 1,
       "new_users": 0
      }
     ],
@@ -1050,14 +1065,14 @@
     ]
    },
    "summary": {
-    "dau_7d_avg": 2.6,
-    "last_date": "2026-07-12",
-    "total_visits": 733,
-    "visits_7d": 18,
-    "visits_prev_7d": 30,
-    "new_7d": 9,
-    "new_prev_7d": 18,
-    "wow": -40.0
+    "dau_7d_avg": 2.7,
+    "last_date": "2026-07-13",
+    "total_visits": 735,
+    "visits_7d": 19,
+    "visits_prev_7d": 25,
+    "new_7d": 13,
+    "new_prev_7d": 16,
+    "wow": -24.0
    },
    "events": [
     {

@@ -1,0 +1,74 @@
+{
+ "app": "dailypick",
+ "metric": "dau",
+ "fetched_at": "2026-07-13T14:00:00+09:00",
+ "range": {
+  "start": "2026-07-01",
+  "end": "2026-07-13"
+ },
+ "rows": [
+  {
+   "date": "2026-07-01",
+   "users": 15,
+   "new_users": 13
+  },
+  {
+   "date": "2026-07-02",
+   "users": 4,
+   "new_users": 2
+  },
+  {
+   "date": "2026-07-03",
+   "users": 3,
+   "new_users": 1
+  },
+  {
+   "date": "2026-07-04",
+   "users": 1,
+   "new_users": 0
+  },
+  {
+   "date": "2026-07-06",
+   "users": 1,
+   "new_users": 0
+  },
+  {
+   "date": "2026-07-07",
+   "users": 3,
+   "new_users": 2
+  },
+  {
+   "date": "2026-07-08",
+   "users": 2,
+   "new_users": 2
+  },
+  {
+   "date": "2026-07-09",
+   "users": 2,
+   "new_users": 1
+  },
+  {
+   "date": "2026-07-10",
+   "users": 4,
+   "new_users": 2
+  },
+  {
+   "date": "2026-07-11",
+   "users": 3,
+   "new_users": 2
+  },
+  {
+   "date": "2026-07-12",
+   "users": 4,
+   "new_users": 4
+  },
+  {
+   "date": "2026-07-13",
+   "users": 1,
+   "new_users": 0
+  }
+ ],
+ "source": {
+  "note": "console dashboard_dau, DAY, 2026-07-01~2026-07-13"
+ }
+}

@@ -15,7 +15,7 @@
   {"app": "gureum", "date": "2026-07-10", "label": "투명 네비바 업데이트 콘솔 제출", "chart": false},
   {"app": "gureum", "date": "2026-07-11", "label": "스마트 발송 4소재 운영 점검 - 전부 발송중 확인, 재방문 카드일기 CTR 3.47%→0.52% 역전 발견", "chart": false},
   {"app": "gureum", "date": "2026-07-12", "label": "재방문 소재 리프레시 - 카드 일기 → 타로 일기(회고 각도)로 교체 등록, CTR 피로도 대응", "chart": false},
-  {"app": "gureum", "date": "2026-07-16", "label": "푸시 유입 5일 연속 0 발견 - 콘솔에 재방문 그룹·타로 일기 소재 미조회, 7/12 교체가 발송까지 안 간 정황(웹 UI 확인 대기)", "chart": false},
+  {"app": "gureum", "date": "2026-07-16", "label": "푸시 유입 5일 연속 0 - 웹 UI 확인 결과 4소재 전부 발송중(API 목록이 재방문 그룹 누락). CTR이 7/11과 동일 - 문구 수정은 소재 누적 CTR을 승계해 리프레시 판정 불가 확인", "chart": false},
   {"app": "jobflow", "date": "2026-06-09", "label": "토스 미니앱 출시", "chart": false},
   {"app": "jobflow", "date": "2026-06-12", "label": "전체탭 노출 · 비즈니스 카테고리 1위 (유입 97% 전체탭)"},
   {"app": "jobflow", "date": "2026-07-11", "label": "재방문 트리거 기획 착수 - D-day 임박 알림 1순위, 요건 조사 대기", "chart": false},

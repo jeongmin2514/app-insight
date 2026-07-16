@@ -1,0 +1,13 @@
+{
+  "app": "jobflow",
+  "metric": "retention_ref",
+  "fetched_at": "2026-07-16T13:25:00+09:00",
+  "range": {"start": "2026-06-09", "end": "2026-07-16"},
+  "rows": [
+    {"date": "2026-07-16", "cohort": "기타", "first_users": 55, "w1": 0.0, "w2": 0.0, "w3": 0.0, "w4": 0.0},
+    {"date": "2026-07-16", "cohort": "전체탭", "first_users": 2, "w1": 0.0, "w2": 0.0, "w3": 0.0, "w4": 0.0},
+    {"date": "2026-07-16", "cohort": "미니앱홈", "first_users": 3, "w1": 0.0, "w2": 0.0, "w3": 0.0, "w4": 0.0},
+    {"date": "2026-07-16", "cohort": "검색", "first_users": 3, "w1": 0.0, "w2": 0.0, "w3": 0.0}
+  ],
+  "source": {"note": "dashboard_retention(dimension=REFERRER, timeUnit=WEEK). timeValue 0 생략, isCompletedData=true만. date=as-of. 6월 출시라 4주차까지(검색 코호트는 3주차까지). 전 코호트 w1~w4 전부 0.0 — 재방문 0건. 전체탭 first_users=2는 DAU referrer와 계속 어긋남(콘솔 코호트 산정 기준 상이 추정, 기존 수집과 동일 현상). 해석 주의."}
+}

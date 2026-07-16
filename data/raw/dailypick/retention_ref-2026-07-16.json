@@ -1,0 +1,13 @@
+{
+  "app": "dailypick",
+  "metric": "retention_ref",
+  "fetched_at": "2026-07-16T13:25:00+09:00",
+  "range": {"start": "2026-06-11", "end": "2026-07-16"},
+  "rows": [
+    {"date": "2026-07-16", "cohort": "전체탭", "first_users": 629, "w1": 0.009538950715421303, "w2": 0.01589825119236884, "w3": 0.003179650238473768, "w4": 0.0},
+    {"date": "2026-07-16", "cohort": "기타", "first_users": 47, "w1": 0.0, "w2": 0.0, "w3": 0.0, "w4": 0.0},
+    {"date": "2026-07-16", "cohort": "미니앱홈", "first_users": 6, "w1": 0.0, "w2": 0.0, "w3": 0.0, "w4": 0.0},
+    {"date": "2026-07-16", "cohort": "검색", "first_users": 1, "w1": 0.0, "w2": 0.0, "w3": 0.0, "w4": 0.0}
+  ],
+  "source": {"note": "dashboard_retention(dimension=REFERRER, timeUnit=WEEK). timeValue 0 생략, isCompletedData=true만. date=as-of. 07-12 대비 4주차 신규 등장(전체탭 w4=0.0) + 기타 코호트 n 39→47, 미니앱홈 4→6. 전체탭 외 전 코호트 재방문 0건."}
+}

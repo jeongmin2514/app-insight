@@ -1,0 +1,34 @@
+{
+ "app": "jobflow",
+ "metric": "dau",
+ "fetched_at": "2026-07-16T13:25:00+09:00",
+ "range": {
+  "start": "2026-07-01",
+  "end": "2026-07-16"
+ },
+ "rows": [
+  {"date": "2026-07-01", "users": 6, "new_users": 5},
+  {"date": "2026-07-03", "users": 2, "new_users": 1},
+  {"date": "2026-07-04", "users": 3, "new_users": 2},
+  {"date": "2026-07-05", "users": 2, "new_users": 1},
+  {"date": "2026-07-06", "users": 7, "new_users": 6},
+  {"date": "2026-07-07", "users": 3, "new_users": 2},
+  {"date": "2026-07-08", "users": 3, "new_users": 2},
+  {"date": "2026-07-09", "users": 5, "new_users": 3},
+  {"date": "2026-07-10", "users": 4, "new_users": 2},
+  {"date": "2026-07-11", "users": 1, "new_users": 0},
+  {"date": "2026-07-12", "users": 3, "new_users": 2},
+  {"date": "2026-07-13", "users": 4, "new_users": 3},
+  {"date": "2026-07-14", "users": 7, "new_users": 5},
+  {"date": "2026-07-15", "users": 1, "new_users": 1},
+  {"date": "2026-07-16", "users": 1, "new_users": 0}
+ ],
+ "source": {
+  "note": "console dashboard_dau, DAY, 2026-07-01~2026-07-16. 07-02는 콘솔 미반환(방문 0) — 기존 수집과 동일하게 행 생략. 07-13은 07-13 수집분(users=1,new=0)에서 콘솔이 4/3으로 상향 정정 — 지연 반영분. 07-16은 13:23 KST 캐시 기준 당일 미완결값.",
+  "demographics": {
+   "age": [{"group": "20대 초반", "value": 4}, {"group": "20대 후반", "value": 19}, {"group": "30대 초반", "value": 5}, {"group": "30대 후반", "value": 3}, {"group": "40대", "value": 5}, {"group": "50대", "value": 9}, {"group": "60대 이상", "value": 7}],
+   "os": [{"os": "IOS", "value": 26}, {"os": "ANDROID", "value": 26}],
+   "gender": [{"gender": "MALE", "value": 16}, {"gender": "FEMALE", "value": 36}]
+  }
+ }
+}

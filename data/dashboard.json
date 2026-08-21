@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-07-16T14:14:37+09:00",
+ "generated_at": "2026-08-21T22:10:22+09:00",
  "headline": {
   "label": "3앱 누적 방문",
-  "value": 2360,
-  "as_of": "2026-07-16",
-  "visits_7d": 68,
-  "visits_prev_7d": 74,
-  "wow": -8.1,
-  "new_7d": 33,
-  "new_prev_7d": 35,
-  "new_wow": -5.7
+  "value": 2600,
+  "as_of": "2026-08-20",
+  "visits_7d": 43,
+  "visits_prev_7d": 45,
+  "wow": -4.4,
+  "new_7d": 25,
+  "new_prev_7d": 29,
+  "new_wow": -13.8
  },
  "apps": {
   "gureum": {
@@ -354,7 +354,182 @@
      {
       "date": "2026-07-16",
       "users": 6,
+      "new_users": 3
+     },
+     {
+      "date": "2026-07-17",
+      "users": 7,
+      "new_users": 2
+     },
+     {
+      "date": "2026-07-18",
+      "users": 1,
       "new_users": 0
+     },
+     {
+      "date": "2026-07-19",
+      "users": 6,
+      "new_users": 2
+     },
+     {
+      "date": "2026-07-20",
+      "users": 4,
+      "new_users": 0
+     },
+     {
+      "date": "2026-07-21",
+      "users": 2,
+      "new_users": 0
+     },
+     {
+      "date": "2026-07-22",
+      "users": 2,
+      "new_users": 0
+     },
+     {
+      "date": "2026-07-23",
+      "users": 3,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-24",
+      "users": 3,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-25",
+      "users": 3,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-26",
+      "users": 2,
+      "new_users": 0
+     },
+     {
+      "date": "2026-07-27",
+      "users": 3,
+      "new_users": 0
+     },
+     {
+      "date": "2026-07-28",
+      "users": 4,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-29",
+      "users": 4,
+      "new_users": 2
+     },
+     {
+      "date": "2026-07-30",
+      "users": 2,
+      "new_users": 0
+     },
+     {
+      "date": "2026-07-31",
+      "users": 2,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-01",
+      "users": 3,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-02",
+      "users": 1,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-03",
+      "users": 3,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-04",
+      "users": 3,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-05",
+      "users": 2,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-06",
+      "users": 1,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-07",
+      "users": 1,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-08",
+      "users": 5,
+      "new_users": 3
+     },
+     {
+      "date": "2026-08-09",
+      "users": 1,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-10",
+      "users": 2,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-11",
+      "users": 4,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-12",
+      "users": 3,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-13",
+      "users": 4,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-14",
+      "users": 4,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-15",
+      "users": 3,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-16",
+      "users": 3,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-17",
+      "users": 3,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-18",
+      "users": 2,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-19",
+      "users": 2,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-20",
+      "users": 4,
+      "new_users": 1
      }
     ],
     "retention_ref": [
@@ -561,14 +736,14 @@
     ]
    },
    "summary": {
-    "dau_7d_avg": 4.0,
-    "last_date": "2026-07-16",
-    "total_visits": 1103,
-    "visits_7d": 28,
-    "visits_prev_7d": 37,
-    "new_7d": 5,
-    "new_prev_7d": 12,
-    "wow": -24.3
+    "dau_7d_avg": 3.0,
+    "last_date": "2026-08-20",
+    "total_visits": 1205,
+    "visits_7d": 21,
+    "visits_prev_7d": 20,
+    "new_7d": 7,
+    "new_prev_7d": 7,
+    "wow": 5.0
    },
    "events": [
     {
@@ -836,6 +1011,161 @@
      },
      {
       "date": "2026-07-16",
+      "users": 5,
+      "new_users": 4
+     },
+     {
+      "date": "2026-07-17",
+      "users": 2,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-18",
+      "users": 4,
+      "new_users": 4
+     },
+     {
+      "date": "2026-07-19",
+      "users": 6,
+      "new_users": 5
+     },
+     {
+      "date": "2026-07-21",
+      "users": 3,
+      "new_users": 3
+     },
+     {
+      "date": "2026-07-23",
+      "users": 4,
+      "new_users": 3
+     },
+     {
+      "date": "2026-07-24",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-25",
+      "users": 4,
+      "new_users": 3
+     },
+     {
+      "date": "2026-07-26",
+      "users": 3,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-27",
+      "users": 6,
+      "new_users": 5
+     },
+     {
+      "date": "2026-07-28",
+      "users": 6,
+      "new_users": 6
+     },
+     {
+      "date": "2026-07-29",
+      "users": 1,
+      "new_users": 0
+     },
+     {
+      "date": "2026-07-30",
+      "users": 6,
+      "new_users": 5
+     },
+     {
+      "date": "2026-07-31",
+      "users": 2,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-02",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-03",
+      "users": 4,
+      "new_users": 4
+     },
+     {
+      "date": "2026-08-04",
+      "users": 6,
+      "new_users": 5
+     },
+     {
+      "date": "2026-08-06",
+      "users": 2,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-07",
+      "users": 2,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-08",
+      "users": 3,
+      "new_users": 3
+     },
+     {
+      "date": "2026-08-09",
+      "users": 2,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-10",
+      "users": 4,
+      "new_users": 3
+     },
+     {
+      "date": "2026-08-11",
+      "users": 4,
+      "new_users": 4
+     },
+     {
+      "date": "2026-08-12",
+      "users": 3,
+      "new_users": 3
+     },
+     {
+      "date": "2026-08-13",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-14",
+      "users": 3,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-15",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-16",
+      "users": 4,
+      "new_users": 4
+     },
+     {
+      "date": "2026-08-17",
+      "users": 4,
+      "new_users": 4
+     },
+     {
+      "date": "2026-08-18",
+      "users": 2,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-19",
+      "users": 5,
+      "new_users": 4
+     },
+     {
+      "date": "2026-08-20",
       "users": 1,
       "new_users": 0
      }
@@ -941,14 +1271,14 @@
     ]
    },
    "summary": {
-    "dau_7d_avg": 3.0,
-    "last_date": "2026-07-16",
-    "total_visits": 515,
-    "visits_7d": 21,
-    "visits_prev_7d": 25,
-    "new_7d": 13,
-    "new_prev_7d": 17,
-    "wow": -16.0
+    "dau_7d_avg": 2.9,
+    "last_date": "2026-08-20",
+    "total_visits": 619,
+    "visits_7d": 20,
+    "visits_prev_7d": 19,
+    "new_7d": 17,
+    "new_prev_7d": 18,
+    "wow": 5.3
    },
    "events": [
     {
@@ -1149,6 +1479,116 @@
      {
       "date": "2026-07-16",
       "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-17",
+      "users": 3,
+      "new_users": 2
+     },
+     {
+      "date": "2026-07-18",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-19",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-20",
+      "users": 3,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-21",
+      "users": 3,
+      "new_users": 3
+     },
+     {
+      "date": "2026-07-23",
+      "users": 2,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-24",
+      "users": 2,
+      "new_users": 2
+     },
+     {
+      "date": "2026-07-25",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-26",
+      "users": 2,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-27",
+      "users": 2,
+      "new_users": 0
+     },
+     {
+      "date": "2026-07-29",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-07-30",
+      "users": 2,
+      "new_users": 0
+     },
+     {
+      "date": "2026-07-31",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-01",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-04",
+      "users": 1,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-05",
+      "users": 2,
+      "new_users": 2
+     },
+     {
+      "date": "2026-08-06",
+      "users": 1,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-07",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-08",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-11",
+      "users": 1,
+      "new_users": 0
+     },
+     {
+      "date": "2026-08-13",
+      "users": 1,
+      "new_users": 1
+     },
+     {
+      "date": "2026-08-18",
+      "users": 1,
       "new_users": 0
      }
     ],
@@ -1256,14 +1696,14 @@
     ]
    },
    "summary": {
-    "dau_7d_avg": 2.7,
-    "last_date": "2026-07-16",
-    "total_visits": 742,
-    "visits_7d": 19,
-    "visits_prev_7d": 12,
-    "new_7d": 15,
-    "new_prev_7d": 6,
-    "wow": 58.3
+    "dau_7d_avg": 0.3,
+    "last_date": "2026-08-18",
+    "total_visits": 776,
+    "visits_7d": 2,
+    "visits_prev_7d": 6,
+    "new_7d": 1,
+    "new_prev_7d": 4,
+    "wow": -66.7
    },
    "events": [
     {

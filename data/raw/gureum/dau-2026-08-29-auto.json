@@ -1,0 +1,16 @@
+{
+  "app": "gureum",
+  "metric": "dau",
+  "fetched_at": "2026-08-29T22:23:00+09:00",
+  "range": {"start": "2026-08-23", "end": "2026-08-29"},
+  "rows": [
+    {"date": "2026-08-23", "users": 1, "new_users": 0},
+    {"date": "2026-08-24", "users": 3, "new_users": 0},
+    {"date": "2026-08-25", "users": 3, "new_users": 1},
+    {"date": "2026-08-26", "users": 4, "new_users": 1},
+    {"date": "2026-08-27", "users": 4, "new_users": 2},
+    {"date": "2026-08-28", "users": 2, "new_users": 1},
+    {"date": "2026-08-29", "users": 2, "new_users": 0}
+  ],
+  "source": {"note": "자동 수집. 당일(8/29) 부분 집계 포함 - 다음 수집에서 upsert로 확정치 덮어씀. 캐시 22:23 KST."}
+}

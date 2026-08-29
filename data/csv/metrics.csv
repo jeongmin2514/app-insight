@@ -119,6 +119,8 @@ dailypick,dau,2026-08-22,users,1
 dailypick,dau,2026-08-22,new_users,0
 dailypick,dau,2026-08-26,users,2
 dailypick,dau,2026-08-26,new_users,1
+dailypick,dau,2026-08-28,users,2
+dailypick,dau,2026-08-28,new_users,2
 dailypick,retention_ref,2026-07-11,cohort,검색
 dailypick,retention_ref,2026-07-11,first_users,1
 dailypick,retention_ref,2026-07-11,w1,0.0
@@ -401,8 +403,12 @@ gureum,dau,2026-08-25,users,3
 gureum,dau,2026-08-25,new_users,1
 gureum,dau,2026-08-26,users,4
 gureum,dau,2026-08-26,new_users,1
-gureum,dau,2026-08-27,users,1
-gureum,dau,2026-08-27,new_users,0
+gureum,dau,2026-08-27,users,4
+gureum,dau,2026-08-27,new_users,2
+gureum,dau,2026-08-28,users,2
+gureum,dau,2026-08-28,new_users,1
+gureum,dau,2026-08-29,users,2
+gureum,dau,2026-08-29,new_users,0
 gureum,retention_ref,2026-07-11,cohort,검색
 gureum,retention_ref,2026-07-11,first_users,4
 gureum,retention_ref,2026-07-11,w1,0.25
@@ -704,6 +710,12 @@ jobflow,dau,2026-08-25,users,1
 jobflow,dau,2026-08-25,new_users,1
 jobflow,dau,2026-08-26,users,4
 jobflow,dau,2026-08-26,new_users,3
+jobflow,dau,2026-08-27,users,3
+jobflow,dau,2026-08-27,new_users,3
+jobflow,dau,2026-08-28,users,3
+jobflow,dau,2026-08-28,new_users,2
+jobflow,dau,2026-08-29,users,1
+jobflow,dau,2026-08-29,new_users,0
 jobflow,retention_ref,2026-07-11,cohort,검색
 jobflow,retention_ref,2026-07-11,first_users,3
 jobflow,retention_ref,2026-07-11,w1,0.0

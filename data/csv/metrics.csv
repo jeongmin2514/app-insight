@@ -409,6 +409,10 @@ gureum,dau,2026-08-28,users,2
 gureum,dau,2026-08-28,new_users,1
 gureum,dau,2026-08-29,users,2
 gureum,dau,2026-08-29,new_users,0
+gureum,dau,2026-08-30,users,1
+gureum,dau,2026-08-30,new_users,0
+gureum,dau,2026-08-31,users,1
+gureum,dau,2026-08-31,new_users,0
 gureum,retention_ref,2026-07-11,cohort,검색
 gureum,retention_ref,2026-07-11,first_users,4
 gureum,retention_ref,2026-07-11,w1,0.25
@@ -715,7 +719,11 @@ jobflow,dau,2026-08-27,new_users,3
 jobflow,dau,2026-08-28,users,3
 jobflow,dau,2026-08-28,new_users,2
 jobflow,dau,2026-08-29,users,1
-jobflow,dau,2026-08-29,new_users,0
+jobflow,dau,2026-08-29,new_users,1
+jobflow,dau,2026-08-30,users,2
+jobflow,dau,2026-08-30,new_users,1
+jobflow,dau,2026-08-31,users,2
+jobflow,dau,2026-08-31,new_users,0
 jobflow,retention_ref,2026-07-11,cohort,검색
 jobflow,retention_ref,2026-07-11,first_users,3
 jobflow,retention_ref,2026-07-11,w1,0.0

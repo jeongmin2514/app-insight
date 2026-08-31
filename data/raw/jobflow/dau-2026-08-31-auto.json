@@ -1,0 +1,16 @@
+{
+  "app": "jobflow",
+  "metric": "dau",
+  "fetched_at": "2026-08-31T13:56:00+09:00",
+  "range": {"start": "2026-08-25", "end": "2026-08-31"},
+  "rows": [
+    {"date": "2026-08-25", "users": 1, "new_users": 1},
+    {"date": "2026-08-26", "users": 4, "new_users": 3},
+    {"date": "2026-08-27", "users": 3, "new_users": 3},
+    {"date": "2026-08-28", "users": 3, "new_users": 2},
+    {"date": "2026-08-29", "users": 1, "new_users": 1},
+    {"date": "2026-08-30", "users": 2, "new_users": 1},
+    {"date": "2026-08-31", "users": 2, "new_users": 0}
+  ],
+  "source": {"note": "자동 수집. 당일(8/31) 부분 집계 포함 - 다음 수집에서 upsert로 확정치 덮어씀. 캐시 13:55 KST."}
+}

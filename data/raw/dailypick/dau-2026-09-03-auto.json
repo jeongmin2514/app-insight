@@ -1,0 +1,11 @@
+{
+  "app": "dailypick",
+  "metric": "dau",
+  "fetched_at": "2026-09-03T09:58:00+09:00",
+  "range": {"start": "2026-08-28", "end": "2026-09-03"},
+  "rows": [
+    {"date": "2026-08-28", "users": 2, "new_users": 2},
+    {"date": "2026-09-02", "users": 1, "new_users": 0}
+  ],
+  "source": {"note": "자동 수집. 8/29~9/1, 9/3은 콘솔 응답 없음(결측 유지). 캐시 09:57 KST."}
+}

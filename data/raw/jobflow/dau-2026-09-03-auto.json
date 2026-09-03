@@ -1,0 +1,15 @@
+{
+  "app": "jobflow",
+  "metric": "dau",
+  "fetched_at": "2026-09-03T09:58:00+09:00",
+  "range": {"start": "2026-08-28", "end": "2026-09-03"},
+  "rows": [
+    {"date": "2026-08-28", "users": 3, "new_users": 2},
+    {"date": "2026-08-29", "users": 1, "new_users": 1},
+    {"date": "2026-08-30", "users": 2, "new_users": 1},
+    {"date": "2026-08-31", "users": 4, "new_users": 3},
+    {"date": "2026-09-01", "users": 2, "new_users": 1},
+    {"date": "2026-09-02", "users": 2, "new_users": 2}
+  ],
+  "source": {"note": "자동 수집. 9/3은 콘솔 응답 없음(결측 유지). 캐시 09:57 KST."}
+}

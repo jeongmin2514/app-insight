@@ -1,0 +1,16 @@
+{
+  "app": "jobflow",
+  "metric": "dau",
+  "fetched_at": "2026-09-04T09:47:00+09:00",
+  "range": {"start": "2026-08-29", "end": "2026-09-04"},
+  "rows": [
+    {"date": "2026-08-29", "users": 1, "new_users": 1},
+    {"date": "2026-08-30", "users": 2, "new_users": 1},
+    {"date": "2026-08-31", "users": 4, "new_users": 3},
+    {"date": "2026-09-01", "users": 2, "new_users": 1},
+    {"date": "2026-09-02", "users": 2, "new_users": 2},
+    {"date": "2026-09-03", "users": 1, "new_users": 1},
+    {"date": "2026-09-04", "users": 1, "new_users": 0}
+  ],
+  "source": {"note": "자동 수집. 당일(9/4) 부분 집계 포함 - 다음 수집에서 upsert로 확정치 덮어씀. 9/3은 직전 수집에서 결측이었으나 방문 1·신규 1로 채워짐. 캐시 09:46 KST."}
+}

@@ -1,0 +1,15 @@
+{
+  "app": "gureum",
+  "metric": "dau",
+  "fetched_at": "2026-09-04T09:47:00+09:00",
+  "range": {"start": "2026-08-29", "end": "2026-09-04"},
+  "rows": [
+    {"date": "2026-08-29", "users": 2, "new_users": 0},
+    {"date": "2026-08-30", "users": 1, "new_users": 0},
+    {"date": "2026-08-31", "users": 3, "new_users": 0},
+    {"date": "2026-09-01", "users": 1, "new_users": 0},
+    {"date": "2026-09-02", "users": 3, "new_users": 2},
+    {"date": "2026-09-03", "users": 2, "new_users": 0}
+  ],
+  "source": {"note": "자동 수집. 9/4는 콘솔 응답 없음(결측 유지). 9/3은 직전 부분 집계 1 -> 확정 2로 상향. 캐시 09:46 KST."}
+}

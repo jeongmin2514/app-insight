@@ -1,0 +1,16 @@
+{
+  "app": "gureum",
+  "metric": "dau",
+  "fetched_at": "2026-09-05T10:10:00+09:00",
+  "range": {"start": "2026-08-30", "end": "2026-09-05"},
+  "rows": [
+    {"date": "2026-08-30", "users": 1, "new_users": 0},
+    {"date": "2026-08-31", "users": 3, "new_users": 0},
+    {"date": "2026-09-01", "users": 1, "new_users": 0},
+    {"date": "2026-09-02", "users": 3, "new_users": 2},
+    {"date": "2026-09-03", "users": 2, "new_users": 0},
+    {"date": "2026-09-04", "users": 1, "new_users": 0},
+    {"date": "2026-09-05", "users": 1, "new_users": 0}
+  ],
+  "source": {"note": "자동 수집. 어제 결측이던 9/4가 1로 채워짐. 9/5는 당일 부분 집계. 캐시 10:08 KST."}
+}

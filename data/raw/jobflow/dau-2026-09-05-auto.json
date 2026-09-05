@@ -1,0 +1,15 @@
+{
+  "app": "jobflow",
+  "metric": "dau",
+  "fetched_at": "2026-09-05T10:10:00+09:00",
+  "range": {"start": "2026-08-30", "end": "2026-09-05"},
+  "rows": [
+    {"date": "2026-08-30", "users": 2, "new_users": 1},
+    {"date": "2026-08-31", "users": 4, "new_users": 3},
+    {"date": "2026-09-01", "users": 2, "new_users": 1},
+    {"date": "2026-09-02", "users": 2, "new_users": 2},
+    {"date": "2026-09-03", "users": 1, "new_users": 1},
+    {"date": "2026-09-04", "users": 1, "new_users": 1}
+  ],
+  "source": {"note": "자동 수집. 9/4 신규가 부분 집계 0 -> 확정 1로 상향. 9/5는 콘솔 응답 없음(결측 유지). 캐시 10:09 KST."}
+}

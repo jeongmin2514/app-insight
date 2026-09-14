@@ -127,6 +127,8 @@ dailypick,dau,2026-09-08,users,1
 dailypick,dau,2026-09-08,new_users,1
 dailypick,dau,2026-09-10,users,3
 dailypick,dau,2026-09-10,new_users,2
+dailypick,dau,2026-09-13,users,1
+dailypick,dau,2026-09-13,new_users,1
 dailypick,retention_ref,2026-07-11,cohort,검색
 dailypick,retention_ref,2026-07-11,first_users,1
 dailypick,retention_ref,2026-07-11,w1,0.0
@@ -437,6 +439,8 @@ gureum,dau,2026-09-11,users,1
 gureum,dau,2026-09-11,new_users,0
 gureum,dau,2026-09-12,users,2
 gureum,dau,2026-09-12,new_users,0
+gureum,dau,2026-09-13,users,1
+gureum,dau,2026-09-13,new_users,0
 gureum,retention_ref,2026-07-11,cohort,검색
 gureum,retention_ref,2026-07-11,first_users,4
 gureum,retention_ref,2026-07-11,w1,0.25

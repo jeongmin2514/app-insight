@@ -1,0 +1,13 @@
+{
+  "app": "jobflow",
+  "metric": "dau",
+  "fetched_at": "2026-09-14T09:46:00+09:00",
+  "range": {"start": "2026-09-08", "end": "2026-09-14"},
+  "rows": [
+    {"date": "2026-09-08", "users": 1, "new_users": 1},
+    {"date": "2026-09-09", "users": 1, "new_users": 1},
+    {"date": "2026-09-10", "users": 3, "new_users": 2},
+    {"date": "2026-09-11", "users": 3, "new_users": 3}
+  ],
+  "source": {"note": "자동 수집. 9/12·9/13·9/14는 콘솔 응답 없음(결측 유지) - 9/13(일) 리캡 발송일 포함. 캐시 09:45 KST."}
+}

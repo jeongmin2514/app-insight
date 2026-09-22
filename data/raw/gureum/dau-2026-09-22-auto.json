@@ -1,0 +1,16 @@
+{
+  "app": "gureum",
+  "metric": "dau",
+  "fetched_at": "2026-09-22T11:39:00+09:00",
+  "range": {"start": "2026-09-16", "end": "2026-09-22"},
+  "rows": [
+    {"date": "2026-09-16", "users": 1, "new_users": 0},
+    {"date": "2026-09-17", "users": 3, "new_users": 0},
+    {"date": "2026-09-18", "users": 3, "new_users": 0},
+    {"date": "2026-09-19", "users": 1, "new_users": 0},
+    {"date": "2026-09-20", "users": 2, "new_users": 0},
+    {"date": "2026-09-21", "users": 1, "new_users": 0},
+    {"date": "2026-09-22", "users": 1, "new_users": 0}
+  ],
+  "source": {"note": "자동 수집. 7일 전부 콘솔 응답 있음(결측 없음). 9/16은 9/17 수집치와 동일(확정), 9/17은 부분 집계 2/0에서 확정 3/0으로 갱신. 9/22는 당일 부분 집계. 7일 referrer 전체탭 10·기타 2, 푸시알림·검색 0. age 20대 후반 8·50대 4, iOS 8·Android 4. 캐시 11:37 KST."}
+}

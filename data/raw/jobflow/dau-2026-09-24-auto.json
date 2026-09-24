@@ -1,0 +1,13 @@
+{
+  "app": "jobflow",
+  "metric": "dau",
+  "fetched_at": "2026-09-24T11:11:00+09:00",
+  "range": {"start": "2026-09-18", "end": "2026-09-24"},
+  "rows": [
+    {"date": "2026-09-18", "users": 2, "new_users": 2},
+    {"date": "2026-09-19", "users": 1, "new_users": 1},
+    {"date": "2026-09-21", "users": 1, "new_users": 1},
+    {"date": "2026-09-22", "users": 2, "new_users": 2}
+  ],
+  "source": {"note": "자동 수집. 9/20(일, 리캡 발송일)·9/23·9/24는 콘솔 응답 없음(결측 유지). 9/23은 어제에 이어 오늘도 응답 없음. 7일 방문 6 전원 신규, referrer 기타 6. Android 4·iOS 2. age 50대 2 외 분산. 캐시 11:11 KST."}
+}

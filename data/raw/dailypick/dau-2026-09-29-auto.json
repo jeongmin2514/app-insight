@@ -1,0 +1,12 @@
+{
+  "app": "dailypick",
+  "metric": "dau",
+  "fetched_at": "2026-09-29T09:53:00+09:00",
+  "range": {"start": "2026-09-23", "end": "2026-09-29"},
+  "rows": [
+    {"date": "2026-09-23", "users": 1, "new_users": 1},
+    {"date": "2026-09-25", "users": 2, "new_users": 1},
+    {"date": "2026-09-26", "users": 1, "new_users": 0}
+  ],
+  "source": {"note": "자동 수집. 9/24·9/27·9/28·9/29 콘솔 응답 없음 - 결측 유지. 9/25·9/26에 재방문 각 1명(비신규). 7일 referrer 기타 2·전체탭 2. age 20대 초반 2·50대 2, iOS 3·Android 1. 캐시 09:53 KST."}
+}
